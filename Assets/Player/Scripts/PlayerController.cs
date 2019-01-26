@@ -23,6 +23,14 @@ public class PlayerController : BaseCharacterController
         Assert.AreNotEqual( pcMainCamera, null );
 	}
 
+    void OnTriggerEnter( Collider collider ) 
+    {
+        if ( collider.tag != "PlayerAttackCollider" )
+            return;
+
+        print( "I ATTACKED" );
+    }
+
     private bool PlayerController_GetDirectionFromInput( ref Vector3 outputDirection )
     {
 		Vector3 input = new Vector3( Input.GetAxisRaw( "Horizontal" ), 0, Input.GetAxisRaw( "Vertical" ) );

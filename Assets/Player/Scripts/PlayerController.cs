@@ -9,7 +9,7 @@ public class PlayerController : BaseCharacterController
 {
 	void Start()
 	{
-
+		
 	}
 
 	#region updates
@@ -25,7 +25,7 @@ public class PlayerController : BaseCharacterController
 
 	public override void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
 	{
-		
+		Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 	}
 
 	public override void AfterCharacterUpdate(float deltaTime)

@@ -7,9 +7,11 @@ using KinematicCharacterController;
 
 public class PlayerController : BaseCharacterController
 {
+    private GameObject pcMainCamera;
+
 	void Start()
 	{
-		
+		pcMainCamera = GameObject.FindGameObjectWithTag( "MainCamera" );
 	}
 
 	#region updates
@@ -25,7 +27,18 @@ public class PlayerController : BaseCharacterController
 
 	public override void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
 	{
-		Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector3 camForward = pcMainCamera.transform.forward;
+        Vector3 camRight = pcMainCamera.transform.right;
+
+        Vector2 camForward2DPlane = new Vector2( camForward.x, camForward.z );
+        Vector2 camRight2DPlane = new Vector2( camRight.x, camRight.z );
+
+		Vector2 input = new Vector2( Input.GetAxis( "Horizontal" ), Input.GetAxis( "Vertical" ) );
+        Vector2 finalVelocity = input.x * camRight2DPlane + input.y * camForward2DPlane;
+
+        currentVelocity.x = finalVelocity.x;
+        currentVelocity.z = finalVelocity.y;
+        
 	}
 
 	public override void AfterCharacterUpdate(float deltaTime)

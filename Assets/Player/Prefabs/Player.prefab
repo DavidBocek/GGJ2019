@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4709280223560526263}
   - component: {fileID: 4709280223560526262}
   - component: {fileID: 4709280223560526257}
+  - component: {fileID: 3727847800699037246}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -190,10 +191,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0dee9986bedf645b17d47f322f48c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveSpeed: 5
+  maxMoveSpeedPerSecond: 300
+  baseAttackDamage: 10
   attackDuration: 0.2
-  attackCooldown: 0.2
+  attackCooldown: 0.05
+  attackMoveForwardSpeedPerSecond: 120
+  dashDuration: 0.1
+  dashCooldown: 0.2
+  dashSpeedPerSecond: 1200
   attackCollider: {fileID: 8116830239628817456}
+--- !u!114 &3727847800699037246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709280223560526256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9022e45f6fb64cc4ea6eebce59aad3d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &6731889951351768881
 GameObject:
   m_ObjectHideFlags: 0

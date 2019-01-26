@@ -4,16 +4,23 @@ using UnityEngine;
 using MEC;
 using DG.Tweening;
 using KinematicCharacterController;
+using UnityEngine.Assertions;
 
 public class PlayerController : BaseCharacterController
 {
-    private GameObject pcMainCamera;
-    
     public float maxMoveSpeed = 1.0f;
+    public float attackDuration = 0.2f;
+    public float attackCooldown = 0.2f;
+    public GameObject attackCollider;
+
+    private GameObject pcMainCamera;
+    private float nextAttackReadyTime = 0.0f;
+    private float attackDeactivateTime = 0.0f;
 
 	void Start()
 	{
 		pcMainCamera = GameObject.FindGameObjectWithTag( "MainCamera" );
+        Assert.AreNotEqual( pcMainCamera, null );
 	}
 
     private bool PlayerController_GetDirectionFromInput( ref Vector3 outputDirection )
@@ -36,6 +43,26 @@ public class PlayerController : BaseCharacterController
 	#region updates
 	void Update()
 	{
+        // debug updates
+        Assert.AreNotEqual( attackCollider, null );
+        BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
+        MeshRenderer attackColliderRenderer = attackCollider.GetComponent<MeshRenderer>();
+        attackColliderRenderer.enabled = attackColliderComp.enabled;
+
+        // attack updates
+        float timeNow = Time.time;
+        if ( Input.GetButton( "Attack" ) && timeNow >= nextAttackReadyTime )
+        {
+            attackColliderComp.enabled = true;
+            attackDeactivateTime = timeNow + attackDuration;
+            nextAttackReadyTime = attackDeactivateTime + attackCooldown;
+        }
+
+        if ( attackDeactivateTime != 0.0f && timeNow >= attackDeactivateTime )
+        {
+            attackColliderComp.enabled = false;
+            attackDeactivateTime = 0.0f;
+        }
 
     }
 

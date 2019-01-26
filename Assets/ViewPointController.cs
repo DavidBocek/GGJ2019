@@ -9,6 +9,7 @@ public class ViewPointController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cameraTransform.LookAt( gameObject.transform.position );
     }
 
     // Update is called once per frame

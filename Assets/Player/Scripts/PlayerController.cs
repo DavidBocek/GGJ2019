@@ -8,33 +8,55 @@ using KinematicCharacterController;
 public class PlayerController : BaseCharacterController
 {
     private GameObject pcMainCamera;
+    
+    public float maxMoveSpeed = 1.0f;
 
 	void Start()
 	{
 		pcMainCamera = GameObject.FindGameObjectWithTag( "MainCamera" );
 	}
 
+    private bool PlayerController_GetDirectionFromInput( ref Vector3 outputDirection )
+    {
+		Vector3 input = new Vector3( Input.GetAxisRaw( "Horizontal" ), 0, Input.GetAxisRaw( "Vertical" ) );
+        if ( input == Vector3.zero )
+            return false;
+        
+        Vector3 camForward = pcMainCamera.transform.forward;
+        Vector3 camRight = pcMainCamera.transform.right;
+
+        Vector3 camForward2DPlane = new Vector3( camForward.x, 0, camForward.z ).normalized;
+        Vector3 camRight2DPlane = new Vector3( camRight.x, 0, camRight.z ).normalized;
+		
+        outputDirection = input.x * camRight2DPlane + input.z * camForward2DPlane;
+
+        return true;
+    }
+
 	#region updates
 	void Update()
 	{
 
-	}
+    }
 
 	public override void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
 	{
-		
+        Vector3 finalDirection = new Vector3();
+        if ( !PlayerController_GetDirectionFromInput( ref finalDirection ) )
+            return;
+
+        currentRotation.SetLookRotation( finalDirection );
 	}
 
 	public override void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
 	{
-        Vector3 camForward = pcMainCamera.transform.forward;
-        Vector3 camRight = pcMainCamera.transform.right;
+        currentVelocity = Vector3.zero;
 
-        Vector2 camForward2DPlane = new Vector2( camForward.x, camForward.z );
-        Vector2 camRight2DPlane = new Vector2( camRight.x, camRight.z );
+        Vector3 finalDirection = new Vector3();
+        if ( !PlayerController_GetDirectionFromInput( ref finalDirection ) )
+            return;
 
-		Vector2 input = new Vector2( Input.GetAxis( "Horizontal" ), Input.GetAxis( "Vertical" ) );
-        Vector2 finalVelocity = input.x * camRight2DPlane + input.y * camForward2DPlane;
+        Vector2 finalVelocity = maxMoveSpeed * new Vector2( finalDirection.x, finalDirection.z );
 
         currentVelocity.x = finalVelocity.x;
         currentVelocity.z = finalVelocity.y;

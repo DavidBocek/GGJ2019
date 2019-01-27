@@ -25,6 +25,7 @@ public class PlayerController : BaseCharacterController
 	public ParticleSystem footstepsFX;
 	public ParticleSystem dashFootstepsFX;
 	public ParticleSystem deathFX;
+	private SwipeTrail swipeTrail;
 
     private GameObject pcMainCamera;
     private float nextAttackReadyTime = 0.0f;
@@ -67,6 +68,8 @@ public class PlayerController : BaseCharacterController
         Assert.IsTrue( animator != null );
 
         legsLayerIndex = animator.GetLayerIndex( "Legs Layer" );
+
+		swipeTrail = GetComponentInChildren<SwipeTrail>();
 	}
 
     void OnTriggerEnter( Collider collider ) 
@@ -137,6 +140,9 @@ public class PlayerController : BaseCharacterController
             attackColliderComp.enabled = true;
             attackDeactivateTime = timeNow + attackDuration;
             nextAttackReadyTime = attackDeactivateTime + attackCooldown;
+
+			bool swipeLeft = !(animator.GetCurrentAnimatorStateInfo(0).IsName("SkelArmature|Attack1") || animator.GetCurrentAnimatorStateInfo(0).IsName("SkelArmature|Attack3"));
+			swipeTrail.Swipe(swipeLeft);
 
             animator.SetTrigger( "AttackTrigger" );
 

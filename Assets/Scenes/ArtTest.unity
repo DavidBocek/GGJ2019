@@ -442,7 +442,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh6350
+  m_Name: pb_Mesh37986
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -751,6 +751,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedBoyo
       objectReference: {fileID: 0}
+    - target: {fileID: 4850889843173508505, guid: e2b116fab315b784cac4b77649c4646b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8246518261152301597, guid: e2b116fab315b784cac4b77649c4646b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1037,11 +1042,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4374826887154280692, guid: bdc6c7a201245b645a95d6f690bebde5,
-        type: 3}
-      propertyPath: VelocityModule.enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc6c7a201245b645a95d6f690bebde5, type: 3}

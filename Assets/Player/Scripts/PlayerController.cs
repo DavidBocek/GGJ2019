@@ -170,6 +170,8 @@ public class PlayerController : BaseCharacterController
             nextDashReadyTime = dashEndTime + dashCooldown;
             
             animator.SetTrigger( "DashTrigger" );
+
+            gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerDash", true );
 			dashFootstepsFX.Play();
 			Timing.CallDelayed(dashDuration, delegate { if (dashFootstepsFX.isPlaying) dashFootstepsFX.Stop(); });
         }

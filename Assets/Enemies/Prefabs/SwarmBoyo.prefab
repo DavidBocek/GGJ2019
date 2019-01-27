@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   publicClipCollections:
   - collectionName: batFlap
-    volume: 0.1
+    volume: 0.15
     clips:
     - {fileID: 8300000, guid: a1d13edd28ae00e40abdb3b1fe7c7e7c, type: 3}
     - {fileID: 8300000, guid: df74674221f85634288b7a9d636e211f, type: 3}
@@ -275,6 +275,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: c98f424901ac0ee4ca952a9cc3aace86, type: 3}
     - {fileID: 8300000, guid: d1a5fe2f8a96b744f96a0318e5493fb3, type: 3}
     - {fileID: 8300000, guid: 45f23719b1f01dd4197b9a0d8a7d6c3b, type: 3}
+  - collectionName: batAttack
+    volume: 0
+    clips:
+    - {fileID: 8300000, guid: 8bbec6750b815ea418967b20ba745370, type: 3}
+    - {fileID: 8300000, guid: c3f19fc0c6aca544c9464261674bc213, type: 3}
+    - {fileID: 8300000, guid: 8d81f657ef631c443970bc2194562e05, type: 3}
+    - {fileID: 8300000, guid: 96e9387e30913a54c9709b93d4cfffef, type: 3}
+    - {fileID: 8300000, guid: 4d460ba9eb59a834a855ff1b6e12abfc, type: 3}
+    - {fileID: 8300000, guid: 9d000de98e3eabc40888ef65087d785e, type: 3}
 --- !u!1001 &4509863393019155652
 PrefabInstance:
   m_ObjectHideFlags: 0

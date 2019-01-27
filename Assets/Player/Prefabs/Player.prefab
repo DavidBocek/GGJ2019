@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxMoveSpeedPerSecond: 300
+  fasterWalkScale: 1.5
   baseAttackDamage: 10
   attackDuration: 0.2
   attackCooldown: 0.05
@@ -123,6 +124,7 @@ MonoBehaviour:
   dashCooldown: 0.2
   dashDistance: 200
   attackCollider: {fileID: 8116830239628817456}
+  fasterWalkRequiredDuration: 2
 --- !u!114 &3727847800699037246
 MonoBehaviour:
   m_ObjectHideFlags: 0

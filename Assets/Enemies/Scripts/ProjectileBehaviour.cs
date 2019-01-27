@@ -5,10 +5,13 @@ using UnityEngine;
 public class ProjectileBehaviour : MonoBehaviour
 {
 	public float moveSpeed;
+
+	private const float TIME_TO_LIVE = 3.0f;
+	private float m_spawnTime;
     // Start is called before the first frame update
     void Start()
     {
-        
+		m_spawnTime = Time.time;
     }
 
     // Update is called once per frame
@@ -24,5 +27,9 @@ public class ProjectileBehaviour : MonoBehaviour
 			// check for health component and send damage
 			Destroy( gameObject );
 		}
-    }
+		else if ( Time.time > m_spawnTime + TIME_TO_LIVE )
+		{
+			Destroy( gameObject );
+		}
+	}
 }

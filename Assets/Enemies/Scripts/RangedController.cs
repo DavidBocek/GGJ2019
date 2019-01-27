@@ -52,8 +52,6 @@ public class RangedController : BaseCharacterController
 	void Update()
 	{
 		UpdateState();
-
-		Debug.Log( m_currentState );
 	}
 
 	private void UpdateState()

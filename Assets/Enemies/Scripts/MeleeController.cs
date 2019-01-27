@@ -9,23 +9,22 @@ public class MeleeController : BaseCharacterController
 {
 	[Header("Gameplay")]
 	public float moveSpeedTowardPlayer;
-	public float addedLungeSpeed;
-	public float lungeDuration;
-	public float lungeMinActivationDist;
 	public int attackDamage;
 	public float maxDistCanSeeIdle;
 	public float maxDistCanSeeCombat;
 	public float attackBeginDistance;
 	public float attackTime;
 	public float delayBeforeAttack;
+	public float minMoveTime;
 	public GameObject attackCollider;
+	public GameObject fireBoxPrefab;
 
 	[Header("FX")]
 	public GameObject deathFX;
 
-	private Animator m_animator;
+	//private Animator m_animator;
 
-	private enum eSwarmAIState
+	private enum eMeleeAIState
 	{
 		IDLE,
 		MOVING,
@@ -33,20 +32,19 @@ public class MeleeController : BaseCharacterController
 	}
 
 	private float m_timeEnteredCurrentState = -1f;
-	private eSwarmAIState m_currentState = eSwarmAIState.IDLE;
+	private eMeleeAIState m_currentState = eMeleeAIState.IDLE;
 	private bool m_canRotate = true;
 	private bool m_canTranslate = true;
 	private bool m_canSeePlayer = false;
-	private bool m_doLunge = false;
 	private Vector3 m_lastKnownPlayerPos = Vector3.zero;
 	private GameObject m_player;
 
 
 	void Start()
 	{
-		EnterState( eSwarmAIState.IDLE );
+		EnterState( eMeleeAIState.IDLE );
 		m_player = GameObject.FindWithTag( "Player" );
-		m_animator = GetComponentInChildren<Animator>();
+		//m_animator = GetComponentInChildren<Animator>();
 	}
 
 	#region updates
@@ -65,7 +63,7 @@ public class MeleeController : BaseCharacterController
 		float distToPlayer = float.MaxValue;
 		m_canSeePlayer = false;
 
-		float distToCast = m_currentState == eSwarmAIState.IDLE ? maxDistCanSeeIdle : maxDistCanSeeCombat;
+		float distToCast = m_currentState == eMeleeAIState.IDLE ? maxDistCanSeeIdle : maxDistCanSeeCombat;
 		if ( Physics.Raycast( transform.position, dirToPlayer, out hit, distToCast, layerMask ) )
 		{
 			if ( hit.collider.gameObject.CompareTag( "Player" ) )
@@ -80,47 +78,47 @@ public class MeleeController : BaseCharacterController
 
 		switch ( m_currentState )
 		{
-			case eSwarmAIState.IDLE:
+			case eMeleeAIState.IDLE:
 				if ( m_canSeePlayer )
 				{
-					EnterState( eSwarmAIState.MOVING );
+					EnterState( eMeleeAIState.MOVING );
 				}
-				m_animator.SetBool("IsMoving", false);
+				//m_animator.SetBool("IsMoving", false);
 				break;
-			case eSwarmAIState.MOVING:
-				if ( distToPlayer < attackBeginDistance )
+			case eMeleeAIState.MOVING:
+				if ( distToPlayer < attackBeginDistance && timeSinceCurState > minMoveTime )
 				{
-					EnterState( eSwarmAIState.ATTACKING );
+					EnterState( eMeleeAIState.ATTACKING );
 				}
-				m_animator.SetBool("IsMoving", true);
+				//m_animator.SetBool("IsMoving", true);
 				break;
-			case eSwarmAIState.ATTACKING:
+			case eMeleeAIState.ATTACKING:
 				if ( timeSinceCurState >= attackTime )
 				{
-					EnterState( eSwarmAIState.MOVING );
+					EnterState( eMeleeAIState.MOVING );
 				}
 				break;
 		}
 	}
 
-	private void EnterState( eSwarmAIState newState )
+	private void EnterState( eMeleeAIState newState )
 	{
-		eSwarmAIState oldState = m_currentState;
+		eMeleeAIState oldState = m_currentState;
 
 		switch ( newState )
 		{
-			case eSwarmAIState.IDLE:
+			case eMeleeAIState.IDLE:
 				m_canRotate = false;
 				m_canTranslate = false;
 				break;
-			case eSwarmAIState.MOVING:
+			case eMeleeAIState.MOVING:
 				m_canRotate = true;
 				m_canTranslate = true;
 				break;
-			case eSwarmAIState.ATTACKING:
+			case eMeleeAIState.ATTACKING:
 				m_canRotate = false;
-				m_canTranslate = true;
-				Timing.RunCoroutineSingleton( Attack(), gameObject, SingletonBehavior.Abort );
+				m_canTranslate = false;
+				Timing.RunCoroutineSingleton( Attack(), Segment.LateUpdate, gameObject, SingletonBehavior.Abort );
 				break;
 		}
 
@@ -131,31 +129,29 @@ public class MeleeController : BaseCharacterController
 
 	private IEnumerator<float> Attack()
 	{
+		Quaternion lastRotation = transform.rotation;
+		yield return Timing.WaitForOneFrame;
+
+		while ( lastRotation != transform.rotation )
+		{
+			lastRotation = transform.rotation;
+			yield return Timing.WaitForOneFrame;
+		}
+
+		BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
+		GetComponentInChildren<TraceBoxWithLine>().DrawLineFX( delayBeforeAttack );
+
 		yield return Timing.WaitForSeconds( delayBeforeAttack );
 
-		if ( Vector3.Distance(m_player.transform.position, transform.position) > lungeMinActivationDist)
-			m_doLunge = true;
-		BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
-		attackColliderComp.enabled = true;
-
-		m_animator.SetTrigger("Attack");
-
-		yield return Timing.WaitForSeconds( lungeDuration );
-
-		if (m_doLunge)
-			m_doLunge = false;
-		attackColliderComp.enabled = false;
+		Instantiate( fireBoxPrefab, attackCollider.transform.position, attackCollider.transform.rotation );
+		//m_animator.SetTrigger("Attack");
 
 		yield break;
 	}
 
 	private void OnTriggerEnter( Collider collider )
 	{
-		HealthController healthController = collider.gameObject.GetComponent<HealthController>();
-		if ( healthController == null || !collider.gameObject.CompareTag( "Player" ) )
-			return;
 
-		healthController.HealthController_TakeDamage( attackDamage );
 	}
 
 	public override void UpdateRotation( ref Quaternion currentRotation, float deltaTime )
@@ -182,13 +178,15 @@ public class MeleeController : BaseCharacterController
 		Vector3 vecToPlayer = m_lastKnownPlayerPos - transform.position;
 		float distanceToPlayer = vecToPlayer.magnitude;
 
-		Vector3 localVel = Vector3.zero;// transform.InverseTransformDirection( currentVelocity );
+		Vector3 localVel = Vector3.zero;
 
-		localVel.z = m_currentState == eSwarmAIState.ATTACKING ? moveSpeedTowardPlayer / 1.5f : moveSpeedTowardPlayer;
-
-		if ( m_doLunge )
+		if ( distanceToPlayer > attackBeginDistance + 0.25 )
 		{
-			localVel.z += addedLungeSpeed;
+			localVel.z = moveSpeedTowardPlayer;
+		}
+		else if ( distanceToPlayer < attackBeginDistance - 0.25 )
+		{
+			localVel.z = -moveSpeedTowardPlayer;
 		}
 
 		currentVelocity = transform.TransformDirection( localVel );
@@ -215,8 +213,8 @@ public class MeleeController : BaseCharacterController
 	public void OnDeath( int damage )
 	{
 		//oops this should be in health but oh well
-		GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
-		Destroy(deathFXInst, 2f);
+		//GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
+		//Destroy( deathFXInst, 2f );
 
 		Destroy( gameObject );
 	}

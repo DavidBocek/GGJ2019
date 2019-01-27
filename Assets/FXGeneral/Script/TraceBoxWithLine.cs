@@ -6,9 +6,8 @@ public class TraceBoxWithLine : MonoBehaviour
 {
 	public GameObject lineFXObj;
 	public BoxCollider box;
-	public float lineDuration;
 
-	public void DrawLineFX()
+	public void DrawLineFX( float lineDuration)
 	{
 		//I'm so sorry
 		Vector3 p1 = box.transform.position + box.center + box.transform.right / 2f * box.size.x * box.transform.localScale.x + Vector3.down * box.size.y / 2f * box.transform.localScale.y + box.transform.forward * box.size.z / 2f * box.transform.localScale.z;

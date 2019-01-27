@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class SpawnPointController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SpawnPointController : MonoBehaviour
     void Start()
     {
 		m_light = GetComponentInChildren<Light>();
+		Assert.IsTrue(m_light != null);
 		m_light.enabled = false;
     }
 

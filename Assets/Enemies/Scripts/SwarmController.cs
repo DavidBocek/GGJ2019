@@ -142,8 +142,7 @@ public class SwarmController : BaseCharacterController
 
 		yield return Timing.WaitForSeconds( lungeDuration );
 
-		if (m_doLunge)
-			m_doLunge = false;
+		m_doLunge = false;
 		attackColliderComp.enabled = false;
 
 		yield break;

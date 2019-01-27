@@ -190,6 +190,11 @@ PrefabInstance:
       propertyPath: maxEnemyCountOnField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6697035221798135192, guid: e22d05b059490914b8b55143ebc79fba,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e22d05b059490914b8b55143ebc79fba, type: 3}
 --- !u!1001 &376631396
@@ -268,7 +273,7 @@ PrefabInstance:
     - target: {fileID: 6697035221798135192, guid: e22d05b059490914b8b55143ebc79fba,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e22d05b059490914b8b55143ebc79fba, type: 3}

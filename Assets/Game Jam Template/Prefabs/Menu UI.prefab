@@ -1088,7 +1088,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Resume
+  m_Text: (A) or Enter to resume
 --- !u!114 &114265775401635630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,10 +1738,10 @@ RectTransform:
   m_Father: {fileID: 22405856}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.010827652, y: 0.04063255}
-  m_AnchorMax: {x: 0.31800002, y: 0.162}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.04063255}
+  m_AnchorMax: {x: 0.5, y: 0.162}
+  m_AnchoredPosition: {x: -160, y: 0}
+  m_SizeDelta: {x: 146, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &22217178
 CanvasRenderer:

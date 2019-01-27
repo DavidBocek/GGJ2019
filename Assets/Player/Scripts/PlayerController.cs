@@ -176,6 +176,11 @@ public class PlayerController : BaseCharacterController
                 }
 
                 gameObject.GetComponent<HealthController>().HealthController_HealToFull();
+                
+                Transform modelTransform = transform.Find( "skele" );
+                
+                modelTransform.localScale = Vector3.zero;
+                modelTransform.DOScale( 1.0f, 0.6f );
 
                 isDead = false;
                 animator.SetBool( "IsDead", false );

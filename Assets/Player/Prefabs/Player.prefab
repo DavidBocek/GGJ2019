@@ -119,7 +119,7 @@ MonoBehaviour:
   baseAttackDamage: 10
   attackDuration: 0.2
   attackCooldown: 0.05
-  attackMoveForwardSpeedPerSecond: 120
+  attackMoveForwardSpeedPerSecond: 60
   dashDuration: 0.2
   dashCooldown: 0.2
   dashDistance: 200

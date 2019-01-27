@@ -564,6 +564,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3994616536818786458, guid: bdc6c7a201245b645a95d6f690bebde5,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerModel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc6c7a201245b645a95d6f690bebde5, type: 3}
 --- !u!1 &1905892370
@@ -581,7 +586,7 @@ GameObject:
   - component: {fileID: 1905892375}
   - component: {fileID: 1905892377}
   - component: {fileID: 1905892376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BallEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -702,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9022e45f6fb64cc4ea6eebce59aad3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 31
+  maxHealth: 10
 --- !u!43 &2077086915
 Mesh:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ using UnityEngine.Assertions;
 public class PlayerController : BaseCharacterController
 {
     public float maxMoveSpeedPerSecond = 1.0f;
+    public float fasterWalkScale = 2.0f;
     public int baseAttackDamage = 10;
     public float attackDuration = 0.2f;
     public float attackCooldown = 0.2f;
@@ -17,6 +18,7 @@ public class PlayerController : BaseCharacterController
     public float dashCooldown = 0.2f;
     public float dashDistance = 1.0f;
     public GameObject attackCollider;
+    public float fasterWalkRequiredDuration = 0.5f;
 
     private GameObject pcMainCamera;
     private float nextAttackReadyTime = 0.0f;
@@ -26,6 +28,7 @@ public class PlayerController : BaseCharacterController
     private GameObject currentSpawnPoint = null;
     private Animator animator = null;
     private int legsLayerIndex = -1;
+    private float timeSpentWalking = 0.0f;
 
     private bool debug_drawAttackCollider = false;
     private bool isDead = false;
@@ -173,6 +176,11 @@ public class PlayerController : BaseCharacterController
                 }
 
                 gameObject.GetComponent<HealthController>().HealthController_HealToFull();
+                
+                Transform modelTransform = transform.Find( "skele" );
+                
+                modelTransform.localScale = Vector3.zero;
+                modelTransform.DOScale( 1.0f, 0.6f );
 
                 isDead = false;
                 animator.SetBool( "IsDead", false );
@@ -222,6 +230,16 @@ public class PlayerController : BaseCharacterController
             if ( PlayerController_GetDirectionFromInput( ref finalDirection ) )
             {
                 Vector2 finalVelocity = deltaTime * maxMoveSpeedPerSecond * new Vector2( finalDirection.x, finalDirection.z );
+                if ( timeSpentWalking >= fasterWalkRequiredDuration )
+                {
+                    finalVelocity *= fasterWalkScale;
+                    animator.SetFloat( "WalkSpeedMultiplier", fasterWalkScale );
+                }
+                else
+                {
+                    animator.SetFloat( "WalkSpeedMultiplier", 1.0f );
+                }
+
                 isWalking = true;
 
                 currentVelocity.x = finalVelocity.x;
@@ -240,6 +258,14 @@ public class PlayerController : BaseCharacterController
         }
 
         animator.SetBool( "IsWalking", isWalking );
+        if ( isWalking )
+        {
+            timeSpentWalking += Time.deltaTime;
+        }
+        else
+        {
+            timeSpentWalking = 0.0f;
+        }
 	}
 
 	public override void AfterCharacterUpdate(float deltaTime)

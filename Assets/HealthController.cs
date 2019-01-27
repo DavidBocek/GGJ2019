@@ -9,7 +9,8 @@ public class HealthController : MonoBehaviour
     {
         eNoDamage,
         eDamaged,
-        eDead
+        eDead,
+        eCount
     }
 
     public int maxHealth;
@@ -46,5 +47,10 @@ public class HealthController : MonoBehaviour
 
         gameObject.SendMessage( "OnDamage", damage );
         return HealthControllerDamageResult.eDamaged;
+    }
+
+    public void HealthController_Heal( int healAmount )
+    {
+        currHealth = Mathf.Min( maxHealth, currHealth + healAmount );
     }
 }

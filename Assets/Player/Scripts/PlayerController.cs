@@ -75,14 +75,14 @@ public class PlayerController : BaseCharacterController
             return;
         
         float timeNow = Time.time;
-        if ( Input.GetButton( "Attack" ) && timeNow >= nextAttackReadyTime )
+        if ( Input.GetButtonDown( "Attack" ) && timeNow >= nextAttackReadyTime )
         {
             BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
             attackColliderComp.enabled = true;
             attackDeactivateTime = timeNow + attackDuration;
             nextAttackReadyTime = attackDeactivateTime + attackCooldown;
         }
-        else if ( Input.GetButton( "Dash" ) && timeNow >= nextDashReadyTime )
+        else if ( Input.GetButtonDown( "Dash" ) && timeNow >= nextDashReadyTime )
         {
             dashEndTime = timeNow + dashDuration;
             nextDashReadyTime = dashEndTime + dashCooldown;

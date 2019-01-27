@@ -114,6 +114,11 @@ public class PlayerController : BaseCharacterController
 		deathFX.Play();
     }
 
+	public void SetSpawnPoint( GameObject spawnPoint )
+	{
+		currentSpawnPoint = spawnPoint;
+	}
+
     private bool PlayerController_CanAct()
     {
         if ( isDead )

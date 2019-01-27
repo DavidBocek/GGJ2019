@@ -69,4 +69,9 @@ public class HealthController : MonoBehaviour
     {
         currHealth = Mathf.Min( maxHealth, currHealth + healAmount );
     }
+
+    public bool HealthController_CanHeal()
+    {
+        return currHealth < maxHealth;
+    }
 }

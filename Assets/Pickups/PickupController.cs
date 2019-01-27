@@ -69,7 +69,12 @@ public class PickupController : MonoBehaviour
     {
         if ( collider.gameObject.tag == "Player" )
         {
+            if ( !collider.gameObject.GetComponent<HealthController>().HealthController_CanHeal() )
+                return;
+
             collider.gameObject.GetComponent<HealthController>().HealthController_Heal( healAmount );
+
+            gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "Pickup", false );
 
             Sequence pickupAnimSequence = DOTween.Sequence();
             pickupAnimSequence.Append( transform.DOScale( bounceUpScaleVal, bounceUpToNormalTime ).SetEase( Ease.InQuad ) );

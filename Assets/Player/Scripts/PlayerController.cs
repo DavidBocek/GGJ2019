@@ -37,9 +37,9 @@ public class PlayerController : BaseCharacterController
     private Animator animator = null;
     private int legsLayerIndex = -1;
     private float timeSpentWalking = 0.0f;
+    private bool isDead = false;
 
     private bool debug_drawAttackCollider = false;
-    private bool isDead = false;
 
 	void Start()
 	{
@@ -82,6 +82,7 @@ public class PlayerController : BaseCharacterController
         if ( healthController == null )
             return;
 
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerAttackHit", true );
         healthController.HealthController_TakeDamage( baseAttackDamage );
     }
 

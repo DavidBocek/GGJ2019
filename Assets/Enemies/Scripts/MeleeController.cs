@@ -21,8 +21,10 @@ public class MeleeController : BaseCharacterController
 
 	[Header("FX")]
 	public GameObject deathFX;
+	public Transform muzzle;
+	public GameObject attackFX;
 
-	//private Animator m_animator;
+	private Animator m_animator;
 
 	private enum eMeleeAIState
 	{
@@ -44,7 +46,7 @@ public class MeleeController : BaseCharacterController
 	{
 		EnterState( eMeleeAIState.IDLE );
 		m_player = GameObject.FindWithTag( "Player" );
-		//m_animator = GetComponentInChildren<Animator>();
+		m_animator = GetComponentInChildren<Animator>();
 	}
 
 	#region updates
@@ -83,14 +85,14 @@ public class MeleeController : BaseCharacterController
 				{
 					EnterState( eMeleeAIState.MOVING );
 				}
-				//m_animator.SetBool("IsMoving", false);
+				m_animator.SetBool("IsMoving", false);
 				break;
 			case eMeleeAIState.MOVING:
 				if ( distToPlayer < attackBeginDistance && timeSinceCurState > minMoveTime )
 				{
 					EnterState( eMeleeAIState.ATTACKING );
 				}
-				//m_animator.SetBool("IsMoving", true);
+				m_animator.SetBool("IsMoving", true);
 				break;
 			case eMeleeAIState.ATTACKING:
 				if ( timeSinceCurState >= attackTime )
@@ -118,6 +120,7 @@ public class MeleeController : BaseCharacterController
 			case eMeleeAIState.ATTACKING:
 				m_canRotate = false;
 				m_canTranslate = false;
+				m_animator.SetTrigger("Charge");
 				Timing.RunCoroutineSingleton( Attack(), Segment.LateUpdate, gameObject, SingletonBehavior.Abort );
 				break;
 		}
@@ -144,7 +147,9 @@ public class MeleeController : BaseCharacterController
 		yield return Timing.WaitForSeconds( delayBeforeAttack );
 
 		Instantiate( fireBoxPrefab, attackCollider.transform.position, attackCollider.transform.rotation );
-		//m_animator.SetTrigger("Attack");
+		m_animator.SetTrigger("Attack");
+		GameObject attackFXInst = GameObject.Instantiate(attackFX, muzzle.position, muzzle.rotation);
+		Destroy(attackFXInst, 3f);
 
 		yield break;
 	}
@@ -213,8 +218,8 @@ public class MeleeController : BaseCharacterController
 	public void OnDeath( int damage )
 	{
 		//oops this should be in health but oh well
-		//GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
-		//Destroy( deathFXInst, 2f );
+		GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
+		Destroy( deathFXInst, 2f );
 
 		Destroy( gameObject );
 	}

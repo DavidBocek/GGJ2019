@@ -274,6 +274,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: c98f424901ac0ee4ca952a9cc3aace86, type: 3}
     - {fileID: 8300000, guid: d1a5fe2f8a96b744f96a0318e5493fb3, type: 3}
     - {fileID: 8300000, guid: 45f23719b1f01dd4197b9a0d8a7d6c3b, type: 3}
+  currHealth: 0
 --- !u!1001 &4509863393019155652
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -313,6 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 40
+  flashRenderer: {fileID: 9201667003295015437}
+  flashDuration: 0.15
 --- !u!1001 &944406878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -401,10 +403,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2685604408538742111}
     m_Modifications:
-    - target: {fileID: 4485258086915675239, guid: 1b019564af5c27f419d426d088fc3b43,
+    - target: {fileID: 4485258086915675233, guid: 1b019564af5c27f419d426d088fc3b43,
         type: 3}
-      propertyPath: moveWithTransform
-      value: 1
+      propertyPath: m_Name
+      value: EyeblastMuzzleFlash
       objectReference: {fileID: 0}
     - target: {fileID: 4485258086915675238, guid: 1b019564af5c27f419d426d088fc3b43,
         type: 3}
@@ -461,10 +463,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4485258086915675233, guid: 1b019564af5c27f419d426d088fc3b43,
+    - target: {fileID: 4485258086915675239, guid: 1b019564af5c27f419d426d088fc3b43,
         type: 3}
-      propertyPath: m_Name
-      value: EyeblastMuzzleFlash
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b019564af5c27f419d426d088fc3b43, type: 3}
@@ -487,6 +489,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2685604408538742111}
     m_Modifications:
+    - target: {fileID: 6895188593350409466, guid: 739583518a102a04a84c0fbae943793d,
+        type: 3}
+      propertyPath: m_Name
+      value: EyeCharge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895188593291338986, guid: 739583518a102a04a84c0fbae943793d,
+        type: 3}
+      propertyPath: stopAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895188594037508533, guid: 739583518a102a04a84c0fbae943793d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6895188593350409471, guid: 739583518a102a04a84c0fbae943793d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -542,21 +559,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6895188593291338986, guid: 739583518a102a04a84c0fbae943793d,
-        type: 3}
-      propertyPath: stopAction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6895188594037508533, guid: 739583518a102a04a84c0fbae943793d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6895188593350409466, guid: 739583518a102a04a84c0fbae943793d,
-        type: 3}
-      propertyPath: m_Name
-      value: EyeCharge
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 739583518a102a04a84c0fbae943793d, type: 3}
 --- !u!4 &1113505701 stripped
@@ -590,6 +592,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2685604408538742111}
     m_Modifications:
+    - target: {fileID: 7334135986085358421, guid: 76d1c73aa172ec54885f5ce031b40f07,
+        type: 3}
+      propertyPath: m_Name
+      value: EyeblastAimWarning
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334135986085358418, guid: 76d1c73aa172ec54885f5ce031b40f07,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7334135986085358419, guid: 76d1c73aa172ec54885f5ce031b40f07,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -645,16 +657,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7334135986085358418, guid: 76d1c73aa172ec54885f5ce031b40f07,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7334135986085358421, guid: 76d1c73aa172ec54885f5ce031b40f07,
-        type: 3}
-      propertyPath: m_Name
-      value: EyeblastAimWarning
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76d1c73aa172ec54885f5ce031b40f07, type: 3}
 --- !u!4 &2128763270 stripped
@@ -676,6 +678,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8246518261152301597}
     m_Modifications:
+    - target: {fileID: 100000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
+      propertyPath: m_Name
+      value: eye
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -720,10 +726,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
-      propertyPath: m_Name
-      value: eye
-      objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
       propertyPath: m_Controller
       value: 
@@ -745,6 +747,12 @@ PrefabInstance:
 --- !u!4 &9201667003281191725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6e2da1858b1a94c498d913e18123a2d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 9201667003281320365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &9201667003295015437 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700000, guid: 6e2da1858b1a94c498d913e18123a2d9,
     type: 3}
   m_PrefabInstance: {fileID: 9201667003281320365}
   m_PrefabAsset: {fileID: 0}

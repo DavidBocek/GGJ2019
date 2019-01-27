@@ -232,6 +232,7 @@ MonoBehaviour:
   maxHealth: 20
   flashRenderer: {fileID: 4509863393022238564}
   flashDuration: 0.15
+  currHealth: 0
 --- !u!1001 &4509863393019155652
 PrefabInstance:
   m_ObjectHideFlags: 0

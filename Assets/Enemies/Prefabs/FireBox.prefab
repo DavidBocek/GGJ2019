@@ -61,7 +61,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   box: {fileID: 1629136238322620585}
   fireFX: {fileID: 3838865705241206324, guid: f53e28b6a020e874581008139c187f76, type: 3}
-  numFiresToSpawn: 10
+  numFiresToSpawn: 25
 --- !u!114 &6462254298696743751
 MonoBehaviour:
   m_ObjectHideFlags: 0

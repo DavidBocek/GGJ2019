@@ -29,7 +29,7 @@ public class Test_SimpleEnemy : MonoBehaviour
     {
         print( "Dead!" );
         gameObject.GetComponent<HealthController>().HealthController_HealToFull();
-        GameObject pickup = Instantiate( healthPickup, transform );
+        GameObject pickup = Instantiate( healthPickup, transform.position + new Vector3( 0.0f, 0.5f, 0.0f ), transform.rotation );
 
         GameObject playerObject = GameObject.FindGameObjectWithTag( "Player" );
         Vector3 playerToSelf = transform.position - playerObject.transform.position;
@@ -37,7 +37,7 @@ public class Test_SimpleEnemy : MonoBehaviour
         playerToSelf.Normalize();
 
         Vector3 pickupVel = playerToSelf * 2.0f;
-        pickupVel.y = 6.0f;
+        pickupVel.y = 2.0f;
         pickup.GetComponent<PickupController>().DoSpawnAnimation( pickupVel );
     }
 }

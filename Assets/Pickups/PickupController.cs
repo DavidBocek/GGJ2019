@@ -10,7 +10,7 @@ public class PickupController : MonoBehaviour
     private float pickupDelay = 1.0f;
     private float pickupActivateTime = 0.0f;
     private float bounceUpScaleVal = 1.2f;
-    private float nothingToBounceUpTime = 0.3f;
+    private float nothingToBounceUpTime = 0.4f;
     private float bounceUpToNormalTime = 0.2f;
 
     public enum PickupType
@@ -38,7 +38,7 @@ public class PickupController : MonoBehaviour
         
         Sequence spawnAnimSequence = DOTween.Sequence();
         spawnAnimSequence.Append( transform.DOScale( bounceUpScaleVal, nothingToBounceUpTime ).SetEase( Ease.OutQuad ) );
-        spawnAnimSequence.Append( transform.DOScale( 1.0f, bounceUpToNormalTime ).SetEase( Ease.OutQuad ) );
+        spawnAnimSequence.Append( transform.DOScale( 1.0f, bounceUpToNormalTime ).SetEase( Ease.InQuad ) );
 
         SetTriggerEnabledState( false );
         pickupActivateTime = Time.time + pickupDelay;

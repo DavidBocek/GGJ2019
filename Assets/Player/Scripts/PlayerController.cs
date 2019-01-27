@@ -24,6 +24,10 @@ public class PlayerController : BaseCharacterController
     private float nextDashReadyTime = 0.0f;
     private float dashEndTime = 0.0f;
     private GameObject currentSpawnPoint = null;
+    private Animator animator = null;
+    private int legsLayerIndex = -1;
+
+    private bool debug_drawAttackCollider = false;
 
 	void Start()
 	{
@@ -48,6 +52,11 @@ public class PlayerController : BaseCharacterController
         {
             Debug.LogWarning( "No starting spawn point found in this level!" );
         }
+
+        animator = GetComponentInChildren<Animator>();
+        Assert.IsTrue( animator != null );
+
+        legsLayerIndex = animator.GetLayerIndex( "Legs Layer" );
 	}
 
     void OnTriggerEnter( Collider collider ) 
@@ -123,21 +132,30 @@ public class PlayerController : BaseCharacterController
             attackColliderComp.enabled = true;
             attackDeactivateTime = timeNow + attackDuration;
             nextAttackReadyTime = attackDeactivateTime + attackCooldown;
+
+            animator.SetTrigger( "AttackTrigger" );
         }
         else if ( Input.GetButtonDown( "Dash" ) && timeNow >= nextDashReadyTime )
         {
             dashEndTime = timeNow + dashDuration;
             nextDashReadyTime = dashEndTime + dashCooldown;
+            
+            animator.SetLayerWeight( legsLayerIndex, 0.0f );
+            animator.SetTrigger( "DashTrigger" );
         }
     }
     
     void Update()
-	{
+    {
         // debug updates
         Assert.AreNotEqual( attackCollider, null );
         BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
-        MeshRenderer attackColliderRenderer = attackCollider.GetComponent<MeshRenderer>();
-        attackColliderRenderer.enabled = attackColliderComp.enabled;
+
+        if ( debug_drawAttackCollider )
+        {
+            MeshRenderer attackColliderRenderer = attackCollider.GetComponent<MeshRenderer>();
+            attackColliderRenderer.enabled = attackColliderComp.enabled;
+        }
 
         if ( Input.GetKeyDown( "p" ) )
         {
@@ -157,6 +175,7 @@ public class PlayerController : BaseCharacterController
         }
         if ( dashEndTime != 0.0f && timeNow >= dashEndTime )
         {
+            // animator.SetLayerWeight( legsLayerIndex, 1.0f );
             dashEndTime = 0.0f;
         }
 
@@ -181,13 +200,13 @@ public class PlayerController : BaseCharacterController
         if ( PlayerController_CanAct() )
         {
             Vector3 finalDirection = new Vector3();
-            if ( !PlayerController_GetDirectionFromInput( ref finalDirection ) )
-                return;
+            if ( PlayerController_GetDirectionFromInput( ref finalDirection ) )
+            {
+                Vector2 finalVelocity = deltaTime * maxMoveSpeedPerSecond * new Vector2( finalDirection.x, finalDirection.z );
 
-            Vector2 finalVelocity = deltaTime * maxMoveSpeedPerSecond * new Vector2( finalDirection.x, finalDirection.z );
-
-            currentVelocity.x = finalVelocity.x;
-            currentVelocity.z = finalVelocity.y;
+                currentVelocity.x = finalVelocity.x;
+                currentVelocity.z = finalVelocity.y;
+            }
         }
         else if ( attackDeactivateTime != 0.0f )
         {
@@ -199,7 +218,8 @@ public class PlayerController : BaseCharacterController
             Vector3 forward2D = new Vector3( gameObject.transform.forward.x, 0, gameObject.transform.forward.z );
             currentVelocity = deltaTime * forward2D * dashDistance / dashDuration;
         }
-        
+
+        animator.SetBool( "IsWalking", currentVelocity != Vector3.zero );
 	}
 
 	public override void AfterCharacterUpdate(float deltaTime)

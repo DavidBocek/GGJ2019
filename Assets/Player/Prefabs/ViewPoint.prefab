@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 4077203286164418020}
+  viewLagSpeed: 4
 --- !u!1001 &47763659024468150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,11 +139,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3832147668607254456}
     m_Modifications:
-    - target: {fileID: 698692355220933142, guid: c4535b0df1b86144882a30ff512f8ba5,
-        type: 3}
-      propertyPath: m_Name
-      value: Camera
-      objectReference: {fileID: 0}
     - target: {fileID: 1105032654562784591, guid: c4535b0df1b86144882a30ff512f8ba5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -197,6 +193,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 698692355220933142, guid: c4535b0df1b86144882a30ff512f8ba5,
+        type: 3}
+      propertyPath: m_Name
+      value: Camera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4535b0df1b86144882a30ff512f8ba5, type: 3}

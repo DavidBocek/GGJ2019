@@ -545,6 +545,7 @@ MonoBehaviour:
   maxHealth: 100
   flashRenderer: {fileID: 3994616536805191066}
   flashDuration: 0.15
+  currHealth: 0
 --- !u!1 &8116830239628817456
 GameObject:
   m_ObjectHideFlags: 0

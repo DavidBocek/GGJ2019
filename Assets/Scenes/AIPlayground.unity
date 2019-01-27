@@ -611,5 +611,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 134156896834273413, guid: e2b116fab315b784cac4b77649c4646b,
+        type: 3}
+      propertyPath: aimTime
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 134156896834273413, guid: e2b116fab315b784cac4b77649c4646b,
+        type: 3}
+      propertyPath: delayBeforeFire
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 134156896834273413, guid: e2b116fab315b784cac4b77649c4646b,
+        type: 3}
+      propertyPath: fireTime
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2b116fab315b784cac4b77649c4646b, type: 3}

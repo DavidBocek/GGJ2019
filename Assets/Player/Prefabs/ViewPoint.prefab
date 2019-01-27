@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3564310456243389015}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +133,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 4077203286164418020}
   viewLagSpeed: 4
   forwardPointOffset: 2
+  forwardOffsetDuration: 2
 --- !u!1001 &47763659024468150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -199,6 +200,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 698692355220933142, guid: c4535b0df1b86144882a30ff512f8ba5,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4535b0df1b86144882a30ff512f8ba5, type: 3}

@@ -84,6 +84,7 @@ public class PlayerController : BaseCharacterController
     private bool PlayerController_GetDirectionFromInput( ref Vector3 outputDirection )
     {
 		Vector3 input = new Vector3( Input.GetAxisRaw( "Horizontal" ), 0, Input.GetAxisRaw( "Vertical" ) );
+		input.Normalize();
         if ( input == Vector3.zero )
             return false;
         

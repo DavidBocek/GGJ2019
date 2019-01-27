@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4709280223560526257}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a4499f5dd18a84fba27fb469430ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterController: {fileID: 0}
+  CharacterController: {fileID: 4709280223560526257}
   Capsule: {fileID: 4709280223560526263}
   Rigidbody: {fileID: 4709280223560526260}
   CapsuleRadius: 0.5

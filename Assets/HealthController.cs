@@ -29,7 +29,7 @@ public class HealthController : MonoBehaviour
     {
         if ( gameObject.CompareTag( "Player" ) )
 		{
-			Debug.Log( currHealth );
+			//Debug.Log( currHealth );
 		}
     }
     

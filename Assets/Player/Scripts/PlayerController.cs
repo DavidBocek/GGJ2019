@@ -172,7 +172,7 @@ public class PlayerController : BaseCharacterController
             attackColliderRenderer.enabled = attackColliderComp.enabled;
         }
 
-        if ( Input.GetKeyDown( "p" ) )
+        if ( Input.GetKeyDown( "p" ))
         {
             gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 50 );
         }

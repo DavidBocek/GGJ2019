@@ -7,9 +7,11 @@ using KinematicCharacterController;
 
 public class SwarmController : BaseCharacterController
 {
+	[Header("Gameplay")]
 	public float moveSpeedTowardPlayer;
 	public float addedLungeSpeed;
 	public float lungeDuration;
+	public float lungeMinActivationDist;
 	public int attackDamage;
 	public float maxDistCanSeeIdle;
 	public float maxDistCanSeeCombat;
@@ -17,6 +19,11 @@ public class SwarmController : BaseCharacterController
 	public float attackTime;
 	public float delayBeforeAttack;
 	public GameObject attackCollider;
+
+	[Header("FX")]
+	public GameObject deathFX;
+
+	private Animator m_animator;
 
 	private enum eSwarmAIState
 	{
@@ -39,14 +46,13 @@ public class SwarmController : BaseCharacterController
 	{
 		EnterState( eSwarmAIState.IDLE );
 		m_player = GameObject.FindWithTag( "Player" );
+		m_animator = GetComponentInChildren<Animator>();
 	}
 
 	#region updates
 	void Update()
 	{
 		UpdateState();
-
-		Debug.Log( m_doLunge );
 	}
 
 	private void UpdateState()
@@ -79,12 +85,14 @@ public class SwarmController : BaseCharacterController
 				{
 					EnterState( eSwarmAIState.MOVING );
 				}
+				m_animator.SetBool("IsMoving", false);
 				break;
 			case eSwarmAIState.MOVING:
 				if ( distToPlayer < attackBeginDistance )
 				{
 					EnterState( eSwarmAIState.ATTACKING );
 				}
+				m_animator.SetBool("IsMoving", true);
 				break;
 			case eSwarmAIState.ATTACKING:
 				if ( timeSinceCurState >= attackTime )
@@ -125,13 +133,17 @@ public class SwarmController : BaseCharacterController
 	{
 		yield return Timing.WaitForSeconds( delayBeforeAttack );
 
-		m_doLunge = true;
+		if ( Vector3.Distance(m_player.transform.position, transform.position) > lungeMinActivationDist)
+			m_doLunge = true;
 		BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
 		attackColliderComp.enabled = true;
 
+		m_animator.SetTrigger("Attack");
+
 		yield return Timing.WaitForSeconds( lungeDuration );
 
-		m_doLunge = false;
+		if (m_doLunge)
+			m_doLunge = false;
 		attackColliderComp.enabled = false;
 
 		yield break;
@@ -202,7 +214,9 @@ public class SwarmController : BaseCharacterController
 
 	public void OnDeath( int damage )
 	{
-		// play death anim
+		//oops this should be in health but oh well
+		GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
+		Destroy(deathFXInst, 2f);
 
 		Destroy( gameObject );
 	}

@@ -646,6 +646,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathBonesFX
       objectReference: {fileID: 0}
+    - target: {fileID: 4374826888243227744, guid: d9add74bab674b94fbcfbb2eec2e1c22,
+        type: 3}
+      propertyPath: VelocityModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4374826888243227747, guid: d9add74bab674b94fbcfbb2eec2e1c22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -700,11 +705,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4374826888243227744, guid: d9add74bab674b94fbcfbb2eec2e1c22,
-        type: 3}
-      propertyPath: VelocityModule.enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9add74bab674b94fbcfbb2eec2e1c22, type: 3}

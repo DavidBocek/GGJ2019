@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileBehaviour : MonoBehaviour
 {
 	public float moveSpeed;
+	public GameObject impactFX;
 
 	private const float TIME_TO_LIVE = 3.0f;
 	private const int DAMAGE = 50;
@@ -33,6 +34,9 @@ public class ProjectileBehaviour : MonoBehaviour
 			{
 				thingToDamage.HealthController_TakeDamage( DAMAGE );
 			}
+			GameObject impactFXInst = GameObject.Instantiate( impactFX, hit.point, Quaternion.identity );
+			impactFXInst.transform.rotation = Quaternion.Slerp( Quaternion.LookRotation( hit.normal ), Quaternion.LookRotation( Vector3.up, Vector3.back ), .2f );
+			Destroy( impactFX, 1f );
 			Destroy( gameObject );
 		}
 		else if ( Time.time > m_spawnTime + TIME_TO_LIVE )

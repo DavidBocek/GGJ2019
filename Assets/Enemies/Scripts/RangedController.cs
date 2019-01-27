@@ -7,6 +7,7 @@ using KinematicCharacterController;
 
 public class RangedController : BaseCharacterController
 {
+	[Header("Gameplay")]
 	public float targetDistFromPlayer;
 	public float moveSpeedMax;
 	public float maxDistCanSeeIdle;
@@ -22,6 +23,15 @@ public class RangedController : BaseCharacterController
 		new Keyframe( 0.25f, 1f ),
 		new Keyframe( 0.75f, 1f ),
 		new Keyframe( 1f, 0f ) );
+
+	[Header("FX")]
+	public ParticleSystem[] eyeChargeFXs;
+	public Light eyeChargeLight;
+	public LineRenderer eyeAimWarning;
+	public LineRenderer eyeChargeWarning;
+	public LayerMask warningLaserMask;
+	public ParticleSystem eyeBlastMuzzleFX;
+	public GameObject deathFX;
 
 	private Animator animator;
 
@@ -50,6 +60,9 @@ public class RangedController : BaseCharacterController
 		m_player = GameObject.FindWithTag( "Player" );
 
 		animator = GetComponentInChildren<Animator>();
+
+		eyeAimWarning.enabled = false;
+		eyeChargeWarning.enabled = false;
 	}
 
 	#region updates
@@ -71,9 +84,12 @@ public class RangedController : BaseCharacterController
 		if ( Physics.Raycast( transform.position, dirToPlayer, out hit, distToCast, layerMask ) )
 		{
 			if ( hit.collider.gameObject.CompareTag( "Player" ) )
+			if ( hit.collider.gameObject.CompareTag( "Player" ) )
 			{
 				m_canSeePlayer = true;
-				m_lastKnownPlayerPos = hit.collider.gameObject.transform.position;
+				Vector3 playerPos = hit.collider.gameObject.transform.position;
+				playerPos.y = muzzlePoint.transform.position.y;
+				m_lastKnownPlayerPos = playerPos;
 			}
 		}
 
@@ -124,6 +140,8 @@ public class RangedController : BaseCharacterController
 			case eRangedAIState.IDLE:
 				m_canRotate = false;
 				m_canTranslate = false;
+				eyeChargeWarning.enabled = false;
+				eyeAimWarning.enabled = false;
 				break;
 			case eRangedAIState.MOVING:
 				m_canRotate = true;
@@ -131,17 +149,28 @@ public class RangedController : BaseCharacterController
 				Vector3 vecToPlayer = m_lastKnownPlayerPos - transform.position;
 				float distanceToPlayer = vecToPlayer.magnitude;
 				m_movingForward = distanceToPlayer > targetDistFromPlayer;
+				eyeChargeWarning.enabled = false;
+				eyeAimWarning.enabled = false;
 				break;
 			case eRangedAIState.AIMING:
 				m_canRotate = true;
 				m_canTranslate = false;
 				animator.SetTrigger("BeginAim");
+				eyeAimWarning.enabled = true;
 				Timing.RunCoroutine( AimThread() );
 				break;
 			case eRangedAIState.FIRING:
 				m_canRotate = false;
 				m_canTranslate = false;
 				animator.SetTrigger("BeginCharge");
+				eyeChargeWarning.enabled = true;
+				foreach (ParticleSystem system in eyeChargeFXs)
+				{
+					system.Play();
+				}
+				eyeChargeLight.enabled = true;
+				eyeAimWarning.enabled = false;
+				eyeChargeWarning.enabled = true;
 				Timing.CallDelayed( delayBeforeFire, Attack );
 				break;
 		}
@@ -158,11 +187,33 @@ public class RangedController : BaseCharacterController
 		{
 			if ( m_currentState == eRangedAIState.AIMING )
 			{
-				Debug.DrawRay( transform.position, m_lastKnownPlayerPos - transform.position, Color.red );
+				RaycastHit hit = new RaycastHit();
+				Vector3 endPos;
+				if (Physics.Raycast(muzzlePoint.transform.position, (m_lastKnownPlayerPos - muzzlePoint.transform.position).normalized, out hit, 500f, warningLaserMask, QueryTriggerInteraction.Ignore))
+				{
+					endPos = hit.point;
+				}
+				else
+				{
+					endPos = muzzlePoint.transform.position + (m_lastKnownPlayerPos - muzzlePoint.transform.position).normalized * 500f;
+				}
+				eyeAimWarning.SetPosition(0, muzzlePoint.transform.position);
+				eyeAimWarning.SetPosition(1, endPos);
 			}
 			else
 			{
-				Debug.DrawRay( transform.position, transform.forward * 100f, Color.green );
+				RaycastHit hit = new RaycastHit();
+				Vector3 endPos;
+				if (Physics.Raycast(muzzlePoint.transform.position, muzzlePoint.transform.forward, out hit, 500f, warningLaserMask, QueryTriggerInteraction.Ignore))
+				{
+					endPos = hit.point;
+				}
+				else
+				{
+					endPos = muzzlePoint.transform.position + muzzlePoint.transform.forward * 500f;
+				}
+				eyeChargeWarning.SetPosition(0, muzzlePoint.transform.position);
+				eyeChargeWarning.SetPosition(1, endPos);
 			}
 			yield return Timing.WaitForOneFrame;
 		}
@@ -173,6 +224,14 @@ public class RangedController : BaseCharacterController
 	private void Attack()
 	{
 		animator.SetTrigger("Attack");
+		foreach (ParticleSystem system in eyeChargeFXs)
+		{
+			system.Stop();
+			system.Clear();
+		}
+		eyeChargeLight.enabled = false;
+		eyeChargeWarning.enabled = false;
+		eyeBlastMuzzleFX.Play();
 		Instantiate( projectile, muzzlePoint.position, muzzlePoint.rotation );
 	}
 
@@ -243,7 +302,8 @@ public class RangedController : BaseCharacterController
 
 	public void OnDeath( int damage )
 	{
-		// play death anim
+		GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
+		Destroy(deathFXInst, 2f);
 
 		Destroy( gameObject );
 	}

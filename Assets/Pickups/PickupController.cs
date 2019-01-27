@@ -23,7 +23,7 @@ public class PickupController : MonoBehaviour
 
     private void SetTriggerEnabledState( bool enabledState )
     {
-        SphereCollider pickupTrigger = GetComponent<SphereCollider>();
+        SphereCollider pickupTrigger = GetComponentInChildren<SphereCollider>();
         Assert.AreEqual( pickupTrigger.isTrigger, true );
         pickupTrigger.enabled = enabledState;
     }

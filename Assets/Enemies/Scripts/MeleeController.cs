@@ -5,7 +5,7 @@ using MEC;
 using DG.Tweening;
 using KinematicCharacterController;
 
-public class SwarmController : BaseCharacterController
+public class MeleeController : BaseCharacterController
 {
 	[Header("Gameplay")]
 	public float moveSpeedTowardPlayer;
@@ -218,8 +218,6 @@ public class SwarmController : BaseCharacterController
 		GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
 		Destroy(deathFXInst, 2f);
 
-
-		Timing.KillCoroutines( gameObject );
 		Destroy( gameObject );
 	}
 	public override void OnGroundHit( Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport )

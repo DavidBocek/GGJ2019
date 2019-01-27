@@ -157,7 +157,7 @@ public class RangedController : BaseCharacterController
 				m_canTranslate = false;
 				animator.SetTrigger("BeginAim");
 				eyeAimWarning.enabled = true;
-				Timing.RunCoroutine( AimThread() );
+				Timing.RunCoroutine( AimThread(), gameObject );
 				break;
 			case eRangedAIState.FIRING:
 				m_canRotate = false;
@@ -171,7 +171,7 @@ public class RangedController : BaseCharacterController
 				eyeChargeLight.enabled = true;
 				eyeAimWarning.enabled = false;
 				eyeChargeWarning.enabled = true;
-				Timing.CallDelayed( delayBeforeFire, Attack );
+				Timing.CallDelayed( delayBeforeFire, Attack, gameObject );
 				break;
 		}
 
@@ -305,6 +305,7 @@ public class RangedController : BaseCharacterController
 		GameObject deathFXInst = GameObject.Instantiate(deathFX, transform.position, Quaternion.identity);
 		Destroy(deathFXInst, 2f);
 
+		Timing.KillCoroutines( gameObject );
 		Destroy( gameObject );
 	}
 	public override void OnGroundHit( Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport )

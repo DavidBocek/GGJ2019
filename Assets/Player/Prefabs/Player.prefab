@@ -546,6 +546,7 @@ MonoBehaviour:
   maxHealth: 100
   flashRenderer: {fileID: 3994616536805191066}
   flashDuration: 0.15
+  currHealth: 0
 --- !u!114 &2328918321156709707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,7 +596,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d5c91bffaed4e4d49bb5a81ff943e1d5, type: 3}
     - {fileID: 8300000, guid: 9bf9a22578ed69d44b64878e17704a7f, type: 3}
     - {fileID: 8300000, guid: 3ad95c2b456b54a479a614b698e5e5db, type: 3}
-  currHealth: 0
 --- !u!1 &8116830239628817456
 GameObject:
   m_ObjectHideFlags: 0

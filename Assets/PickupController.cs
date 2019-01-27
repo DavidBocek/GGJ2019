@@ -9,6 +9,9 @@ public class PickupController : MonoBehaviour
     private int healAmount = 10;
     private float pickupDelay = 1.0f;
     private float pickupActivateTime = 0.0f;
+    private float bounceUpScaleVal = 1.2f;
+    private float nothingToBounceUpTime = 0.3f;
+    private float bounceUpToNormalTime = 0.2f;
 
     public enum PickupType
     {
@@ -32,7 +35,10 @@ public class PickupController : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().velocity = velocity;
         
         Transform transform = gameObject.transform;
-        transform.DOScale( 1.0f, 1.0f ).SetEase( Ease.OutQuad );
+        
+        Sequence spawnAnimSequence = DOTween.Sequence();
+        spawnAnimSequence.Append( transform.DOScale( bounceUpScaleVal, nothingToBounceUpTime ).SetEase( Ease.OutQuad ) );
+        spawnAnimSequence.Append( transform.DOScale( 1.0f, bounceUpToNormalTime ).SetEase( Ease.OutQuad ) );
 
         SetTriggerEnabledState( false );
         pickupActivateTime = Time.time + pickupDelay;
@@ -54,12 +60,21 @@ public class PickupController : MonoBehaviour
         }
     }
     
+    void OnPickupAnimComplete()
+    {
+        Destroy( gameObject );
+    }
+
     void OnTriggerEnter( Collider collider )
     {
         if ( collider.gameObject.tag == "Player" )
         {
             collider.gameObject.GetComponent<HealthController>().HealthController_Heal( healAmount );
-            Destroy( gameObject );
+
+            Sequence pickupAnimSequence = DOTween.Sequence();
+            pickupAnimSequence.Append( transform.DOScale( bounceUpScaleVal, bounceUpToNormalTime ).SetEase( Ease.InQuad ) );
+            pickupAnimSequence.Append( transform.DOScale( 0.0f, nothingToBounceUpTime ).SetEase( Ease.OutQuad ) );
+            pickupAnimSequence.OnComplete( OnPickupAnimComplete );
         }
     }
 }

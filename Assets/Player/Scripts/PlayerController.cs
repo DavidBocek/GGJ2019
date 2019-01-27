@@ -23,12 +23,31 @@ public class PlayerController : BaseCharacterController
     private float attackDeactivateTime = 0.0f;
     private float nextDashReadyTime = 0.0f;
     private float dashEndTime = 0.0f;
+    private GameObject currentSpawnPoint = null;
 
 	void Start()
 	{
 		pcMainCamera = GameObject.FindGameObjectWithTag( "MainCamera" );
         Assert.AreNotEqual( pcMainCamera, null );
         Assert.AreNotEqual( gameObject.GetComponent<HealthController>(), null );
+
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag( "SpawnPoint" );
+        for ( int i = 0; i < spawnPoints.Length; ++i )
+        {
+            // make sure there's only 1 level start per level
+            Assert.IsTrue( !spawnPoints[i].GetComponent<SpawnPointController>().isLevelStart || currentSpawnPoint == null );
+            if ( spawnPoints[i].GetComponent<SpawnPointController>().isLevelStart )
+                currentSpawnPoint = spawnPoints[i];
+        }
+
+        if ( spawnPoints.Length == 0 )
+        {
+            Debug.LogWarning( "No spawn points at all in this level!" );
+        }
+        if ( currentSpawnPoint == null )
+        {
+            Debug.LogWarning( "No starting spawn point found in this level!" );
+        }
 	}
 
     void OnTriggerEnter( Collider collider ) 
@@ -55,6 +74,29 @@ public class PlayerController : BaseCharacterController
         outputDirection = input.x * camRight2DPlane + input.z * camForward2DPlane;
 
         return true;
+    }
+
+    public void OnDamage( int damage )
+    {
+        print( "player took damage " + damage.ToString() );
+    }
+
+    public void OnDeath( int damage )
+    {
+        // todo(dh): play anim?
+
+
+        if ( currentSpawnPoint == null )
+        {
+            Debug.LogWarning( "No spawn point on player death!" );
+        }
+        else
+        {
+            gameObject.GetComponent<KinematicCharacterMotor>().SetPosition( currentSpawnPoint.transform.position );
+        }
+
+        gameObject.GetComponent<HealthController>().HealthController_HealToFull();
+
     }
 
     private bool PlayerController_CanAct()
@@ -96,6 +138,11 @@ public class PlayerController : BaseCharacterController
         BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
         MeshRenderer attackColliderRenderer = attackCollider.GetComponent<MeshRenderer>();
         attackColliderRenderer.enabled = attackColliderComp.enabled;
+
+        if ( Input.GetKeyDown( "p" ) )
+        {
+            gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 10 );
+        }
 
         // input updates
         float timeNow = Time.time;

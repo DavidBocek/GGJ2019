@@ -16,6 +16,7 @@ public class SpawnerController : MonoBehaviour
     {
         pickup = Instantiate( pickupPrefab, transform.position, transform.rotation );
         pickup.GetComponent<PickupController>().pickupType = pickupType;
+        pickup.GetComponent<PickupController>().DoSpawnAnimation( new Vector3( 0.0f, 0.0f, 0.0f ) );
     }
 
     // Start is called before the first frame update

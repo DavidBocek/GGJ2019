@@ -233,6 +233,13 @@ public class RangedController : BaseCharacterController
 	#endregion
 
 	#region callbacks
+
+	public void OnDeath( int damage )
+	{
+		// play death anim
+
+		Destroy( gameObject );
+	}
 	public override void OnGroundHit( Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport )
 	{
 

@@ -7,6 +7,7 @@ public class ProjectileBehaviour : MonoBehaviour
 	public float moveSpeed;
 
 	private const float TIME_TO_LIVE = 3.0f;
+	private const int DAMAGE = 50;
 	private float m_spawnTime;
     // Start is called before the first frame update
     void Start()
@@ -22,9 +23,16 @@ public class ProjectileBehaviour : MonoBehaviour
 		transform.position += ( moveDir * moveSpeed * Time.fixedDeltaTime );
 		RaycastHit hit;
 
-		if ( Physics.Raycast( transform.position, moveDir, out hit, moveSpeed * Time.fixedDeltaTime ) )
+		LayerMask layerMask = 1 << 2;
+		layerMask = ~layerMask;
+
+		if ( Physics.Raycast( transform.position, moveDir, out hit, moveSpeed * Time.fixedDeltaTime,  layerMask ) )
 		{
-			// check for health component and send damage
+			HealthController thingToDamage = hit.collider.gameObject.GetComponent<HealthController>();
+			if ( thingToDamage != null )
+			{
+				thingToDamage.HealthController_TakeDamage( DAMAGE );
+			}
 			Destroy( gameObject );
 		}
 		else if ( Time.time > m_spawnTime + TIME_TO_LIVE )

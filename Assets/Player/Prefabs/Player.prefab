@@ -196,9 +196,9 @@ MonoBehaviour:
   attackDuration: 0.2
   attackCooldown: 0.05
   attackMoveForwardSpeedPerSecond: 120
-  dashDuration: 0.1
+  dashDuration: 0.2
   dashCooldown: 0.2
-  dashSpeedPerSecond: 1200
+  dashDistance: 200
   attackCollider: {fileID: 8116830239628817456}
 --- !u!114 &3727847800699037246
 MonoBehaviour:

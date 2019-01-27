@@ -15,7 +15,7 @@ public class PlayerController : BaseCharacterController
     public float attackMoveForwardSpeedPerSecond = 1.0f;
     public float dashDuration = 0.5f;
     public float dashCooldown = 0.2f;
-    public float dashSpeedPerSecond = 1.0f;
+    public float dashDistance = 1.0f;
     public GameObject attackCollider;
 
     private GameObject pcMainCamera;
@@ -150,7 +150,7 @@ public class PlayerController : BaseCharacterController
         else if ( dashEndTime != 0.0f )
         {
             Vector3 forward2D = new Vector3( gameObject.transform.forward.x, 0, gameObject.transform.forward.z );
-            currentVelocity = deltaTime * forward2D * dashSpeedPerSecond;
+            currentVelocity = deltaTime * forward2D * dashDistance / dashDuration;
         }
         
 	}

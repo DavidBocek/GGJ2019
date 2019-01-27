@@ -44,11 +44,11 @@ public class HealthController : MonoBehaviour
 
         if ( currHealth <= 0 )
         {
-            gameObject.SendMessage( "OnDeath", damage );
+            gameObject.SendMessage( "OnDeath", damage, SendMessageOptions.DontRequireReceiver );
             return HealthControllerDamageResult.eDead;
         }
 
-        gameObject.SendMessage( "OnDamage", damage );
+        gameObject.SendMessage( "OnDamage", damage, SendMessageOptions.DontRequireReceiver );
         return HealthControllerDamageResult.eDamaged;
     }
 

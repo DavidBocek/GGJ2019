@@ -5,6 +5,7 @@ using MEC;
 using DG.Tweening;
 using KinematicCharacterController;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : BaseCharacterController
 {
@@ -172,9 +173,13 @@ public class PlayerController : BaseCharacterController
             attackColliderRenderer.enabled = attackColliderComp.enabled;
         }
 
-        if ( Input.GetKeyDown( "p" ))
+        if ( Input.GetKeyDown( "p" ) )
         {
             gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 50 );
+        }
+        if ( Input.GetKeyDown( "m" ) )
+        {
+		    SceneManager.LoadScene( 1 );
         }
 
         // input updates

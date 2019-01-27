@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 7030503827746267366}
   - component: {fileID: 7030503827746267361}
   - component: {fileID: 7030503827746267360}
+  - component: {fileID: 1943605434537233303}
   m_Layer: 2
   m_Name: SwarmBoyo
   m_TagString: Enemy
@@ -232,6 +233,19 @@ MonoBehaviour:
   maxHealth: 20
   flashRenderer: {fileID: 4509863393022238564}
   flashDuration: 0.15
+--- !u!114 &1943605434537233303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030503827746267363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d3c3192ec6e614996013fde6836925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyVisualsObject: {fileID: 4509863393019056740}
 --- !u!1001 &4509863393019155652
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -337,6 +351,12 @@ PrefabInstance:
       objectReference: {fileID: 4509863393019547206}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 613d5cd78e6f98a44a1bc054e89d2aa7, type: 3}
+--- !u!1 &4509863393019056740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 613d5cd78e6f98a44a1bc054e89d2aa7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4509863393019155652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4509863393019547204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 613d5cd78e6f98a44a1bc054e89d2aa7,

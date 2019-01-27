@@ -212,17 +212,6 @@ public class SwarmController : BaseCharacterController
 
 	#region callbacks
 
-    public void OnSpawnFromSpawner()
-    {
-        Transform modelTrans = transform.Find( "bat" );
-        float targetScale = modelTrans.localScale.x; // please don't make this non-uniform
-
-        modelTrans.localScale = Vector3.zero;
-        Sequence spawnAnimSequence = DOTween.Sequence();
-        spawnAnimSequence.Append( modelTrans.DOScale( targetScale + 0.4f, 0.2f ).SetEase( Ease.OutQuad ) );
-        spawnAnimSequence.Append( modelTrans.DOScale( targetScale, 0.2f ).SetEase( Ease.OutQuad ) );
-    }
-
 	public void OnDeath( int damage )
 	{
 		//oops this should be in health but oh well

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7ddc82742f029a94db6d7bbdc3600fb2
+guid: be5cf718989db0e4b9524b80e157712c
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,13 +8,13 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Gate
+    4300000: BonePile
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: No Name
-    second: {fileID: 2100000, guid: 75bdcb39c12463046aaf9c2afb5c5f7c, type: 2}
+    second: {fileID: 2100000, guid: 8917a4b2db808844d9e303fa5b6aad2e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

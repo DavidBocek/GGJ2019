@@ -51,8 +51,11 @@ public class PlayerController : BaseCharacterController
         {
             // make sure there's only 1 level start per level
             Assert.IsTrue( !spawnPoints[i].GetComponent<SpawnPointController>().isLevelStart || currentSpawnPoint == null );
-            if ( spawnPoints[i].GetComponent<SpawnPointController>().isLevelStart )
-                currentSpawnPoint = spawnPoints[i];
+			if (spawnPoints[i].GetComponent<SpawnPointController>().isLevelStart)
+			{
+				currentSpawnPoint = spawnPoints[i];
+				currentSpawnPoint.GetComponent<SpawnPointController>().Activate();
+			}
         }
 
         if ( spawnPoints.Length == 0 )
@@ -116,7 +119,9 @@ public class PlayerController : BaseCharacterController
 
 	public void SetSpawnPoint( GameObject spawnPoint )
 	{
+		currentSpawnPoint.GetComponent<SpawnPointController>().Deactivate();
 		currentSpawnPoint = spawnPoint;
+		currentSpawnPoint.GetComponent<SpawnPointController>().Activate();
 	}
 
     private bool PlayerController_CanAct()

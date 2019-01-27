@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using DG.Tweening;
 
 public class HealthController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class HealthController : MonoBehaviour
     }
 
     public int maxHealth;
+
+	public Renderer flashRenderer;
+	public float flashDuration = 0.15f;
 
     private int currHealth;
 
@@ -44,11 +48,15 @@ public class HealthController : MonoBehaviour
 
         if ( currHealth <= 0 )
         {
-            gameObject.SendMessage( "OnDeath", damage, SendMessageOptions.DontRequireReceiver );
+			flashRenderer.material.SetFloat("_FlashAmount", 0f);
+            gameObject.SendMessageUpwards( "OnDeath", damage, SendMessageOptions.DontRequireReceiver ); // send upwards for spawners
             return HealthControllerDamageResult.eDead;
         }
 
-        gameObject.SendMessage( "OnDamage", damage, SendMessageOptions.DontRequireReceiver );
+		flashRenderer.material.SetFloat("_FlashAmount", 0f);
+		flashRenderer.material.DOFloat(1f, "_FlashAmount", flashDuration / 2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InQuad);
+
+        gameObject.SendMessageUpwards( "OnDamage", damage, SendMessageOptions.DontRequireReceiver );
         return HealthControllerDamageResult.eDamaged;
     }
 

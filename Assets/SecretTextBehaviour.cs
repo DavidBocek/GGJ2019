@@ -29,7 +29,7 @@ public class SecretTextBehaviour : MonoBehaviour
 
 	public void Announce()
 	{
-		Timing.RunCoroutineSingleton( AnnounceThread(), gameObject, SingletonBehavior.Abort );
+		Timing.RunCoroutineSingleton( AnnounceThread(), gameObject, SingletonBehavior.Overwrite );
 	}
 
 	private IEnumerator<float> AnnounceThread()

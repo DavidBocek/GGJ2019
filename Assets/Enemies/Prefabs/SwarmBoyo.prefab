@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11b05f614676ea14087fbf945bb62acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeedTowardPlayer: 5
+  moveSpeedTowardPlayer: 7
   addedLungeSpeed: 13
   lungeDuration: 0.2
   lungeMinActivationDist: 1

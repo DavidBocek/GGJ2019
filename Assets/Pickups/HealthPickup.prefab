@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3541863477514499424}
   - component: {fileID: 3541863477514499427}
   - component: {fileID: 7057932759387518846}
+  - component: {fileID: 63616078316508490}
   m_Layer: 11
   m_Name: HealthPickup
   m_TagString: Untagged
@@ -78,6 +79,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &63616078316508490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541863477514499448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b09f2c5ac29add4198545f5a27b13d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  publicClipCollections:
+  - collectionName: Pickup
+    clips:
+    - {fileID: 8300000, guid: b488a3be3c9d68140bdb65855779b13d, type: 3}
 --- !u!1 &5253418516679957059
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,16 +457,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3541863477514499452}
     m_Modifications:
-    - target: {fileID: 4662228170046698544, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a,
-        type: 3}
-      propertyPath: m_Name
-      value: Pluses
-      objectReference: {fileID: 0}
-    - target: {fileID: 4662228170046698544, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4662228170046698547, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -504,6 +511,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662228170046698544, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a,
+        type: 3}
+      propertyPath: m_Name
+      value: Pluses
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662228170046698544, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662228170046698544, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a,
+        type: 3}
+      propertyPath: m_Name
+      value: Pluses
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ef14bdd71fab2c4f90be7aaa78f7c7a, type: 3}

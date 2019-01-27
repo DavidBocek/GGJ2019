@@ -5,6 +5,7 @@ using MEC;
 using DG.Tweening;
 using KinematicCharacterController;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : BaseCharacterController
 {
@@ -36,9 +37,9 @@ public class PlayerController : BaseCharacterController
     private Animator animator = null;
     private int legsLayerIndex = -1;
     private float timeSpentWalking = 0.0f;
+    private bool isDead = false;
 
     private bool debug_drawAttackCollider = false;
-    private bool isDead = false;
 
 	void Start()
 	{
@@ -81,6 +82,7 @@ public class PlayerController : BaseCharacterController
         if ( healthController == null )
             return;
 
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerAttackHit", true );
         healthController.HealthController_TakeDamage( baseAttackDamage );
     }
 
@@ -104,6 +106,7 @@ public class PlayerController : BaseCharacterController
 
     public void OnDamage( int damage )
     {
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerTakeDamage", true );
         print( "player took damage " + damage.ToString() );
     }
 
@@ -111,9 +114,11 @@ public class PlayerController : BaseCharacterController
     {
 		if ( isDead )
 			return;
-
+        
         isDead = true;
         animator.SetBool( "IsDead", true );
+
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerDeath", true );
 		deathFX.Play();
     }
 
@@ -165,6 +170,8 @@ public class PlayerController : BaseCharacterController
             nextDashReadyTime = dashEndTime + dashCooldown;
             
             animator.SetTrigger( "DashTrigger" );
+
+            gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerDash", true );
 			dashFootstepsFX.Play();
 			Timing.CallDelayed(dashDuration, delegate { if (dashFootstepsFX.isPlaying) dashFootstepsFX.Stop(); });
         }
@@ -182,9 +189,13 @@ public class PlayerController : BaseCharacterController
             attackColliderRenderer.enabled = attackColliderComp.enabled;
         }
 
-        if ( Input.GetKeyDown( "p" ))
+        if ( Input.GetKeyDown( "p" ) )
         {
             gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 50 );
+        }
+        if ( Input.GetKeyDown( "m" ) )
+        {
+		    SceneManager.LoadScene( 1 );
         }
 
         // input updates
@@ -212,6 +223,7 @@ public class PlayerController : BaseCharacterController
 
                 isDead = false;
                 animator.SetBool( "IsDead", false );
+                GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerRespawn", true );
             }
         }
 

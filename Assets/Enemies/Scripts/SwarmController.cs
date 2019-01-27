@@ -23,6 +23,9 @@ public class SwarmController : BaseCharacterController
 	[Header("FX")]
 	public GameObject deathFX;
 
+    [Header("Sound")]
+    public float flapDelay = 0.3f;
+
 	private Animator m_animator;
 
 	private enum eSwarmAIState
@@ -40,20 +43,36 @@ public class SwarmController : BaseCharacterController
 	private bool m_doLunge = false;
 	private Vector3 m_lastKnownPlayerPos = Vector3.zero;
 	private GameObject m_player;
-
+    private float m_nextFlapTime = 0.0f;
+    private AudioSource m_flapSource = null;
 
 	void Start()
 	{
 		EnterState( eSwarmAIState.IDLE );
 		m_player = GameObject.FindWithTag( "Player" );
 		m_animator = GetComponentInChildren<Animator>();
+
+        m_nextFlapTime = Time.time + flapDelay;
 	}
 
 	#region updates
 	void Update()
 	{
 		UpdateState();
+        UpdateSound();
 	}
+
+    private void UpdateSound()
+    {
+        if ( Time.time > m_nextFlapTime )
+        {
+            m_nextFlapTime = Time.time + flapDelay;
+            if ( m_flapSource != null )
+                m_flapSource.Stop();
+
+            m_flapSource = gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "batFlap", true );
+        }
+    }
 
 	private void UpdateState()
 	{
@@ -138,6 +157,8 @@ public class SwarmController : BaseCharacterController
 		BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
 		attackColliderComp.enabled = true;
 
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "batAttack", true );
+
 		m_animator.SetTrigger("Attack");
 
 		yield return Timing.WaitForSeconds( lungeDuration );
@@ -210,17 +231,6 @@ public class SwarmController : BaseCharacterController
 	#endregion
 
 	#region callbacks
-
-    public void OnSpawnFromSpawner()
-    {
-        Transform modelTrans = transform.Find( "bat" );
-        float targetScale = modelTrans.localScale.x; // please don't make this non-uniform
-
-        modelTrans.localScale = Vector3.zero;
-        Sequence spawnAnimSequence = DOTween.Sequence();
-        spawnAnimSequence.Append( modelTrans.DOScale( targetScale + 0.4f, 0.2f ).SetEase( Ease.OutQuad ) );
-        spawnAnimSequence.Append( modelTrans.DOScale( targetScale, 0.2f ).SetEase( Ease.OutQuad ) );
-    }
 
 	public void OnDeath( int damage )
 	{

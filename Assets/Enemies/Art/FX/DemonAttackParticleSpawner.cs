@@ -9,12 +9,6 @@ public class DemonAttackParticleSpawner : MonoBehaviour
 	public int numFiresToSpawn;
 	public float fireBurnDuration;
 
-	public void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.O))
-			SpawnParticles();
-	}
-
 	public void SpawnParticles()
 	{
 		float boxX = box.size.x / 2f * box.transform.localScale.x;

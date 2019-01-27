@@ -245,11 +245,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4499869463787655869, guid: 37ab92b2a79e9c341a8253c39e9095ac,
-        type: 3}
-      propertyPath: m_TagString
-      value: MainCamera
-      objectReference: {fileID: 0}
     - target: {fileID: 4077203286164418020, guid: 37ab92b2a79e9c341a8253c39e9095ac,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -294,6 +289,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499869463787655869, guid: 37ab92b2a79e9c341a8253c39e9095ac,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 1442568727976605939, guid: 37ab92b2a79e9c341a8253c39e9095ac,
         type: 3}

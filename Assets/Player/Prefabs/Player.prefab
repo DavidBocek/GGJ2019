@@ -645,6 +645,19 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 55e366ee37307ad4f906259fe05c3c7b, type: 3}
     - {fileID: 8300000, guid: be87b54185be64f45b9d700e3e7b9547, type: 3}
     - {fileID: 8300000, guid: cfb5826179052614a874d5867714c01c, type: 3}
+  - collectionName: enemyDeath
+    volume: 0
+    clips:
+    - {fileID: 8300000, guid: 52c5bb9bd784fd54986103897870903b, type: 3}
+    - {fileID: 8300000, guid: 9ca7ca3a3df4abd42af18230b44271d1, type: 3}
+    - {fileID: 8300000, guid: 126b47c5697dfff498aa7a411f92f7f4, type: 3}
+    - {fileID: 8300000, guid: c3978f68f2a776847b648594a71ef736, type: 3}
+    - {fileID: 8300000, guid: 9fa01c6b3f77aea46af1d37382fd6799, type: 3}
+    - {fileID: 8300000, guid: 720c190ccbb2e884697df0ef161a5945, type: 3}
+    - {fileID: 8300000, guid: e558e0ea2f6cb634ab52867d948d6755, type: 3}
+    - {fileID: 8300000, guid: a8470cc7af8cdfe4c9c4d1fc15153dac, type: 3}
+    - {fileID: 8300000, guid: 6f67596f5a5f8834fafd06198a05923d, type: 3}
+    - {fileID: 8300000, guid: 94760a5881e1f914894f197c763e115b, type: 3}
 --- !u!1 &8116830239628817456
 GameObject:
   m_ObjectHideFlags: 0

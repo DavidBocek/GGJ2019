@@ -83,7 +83,9 @@ public class PlayerController : BaseCharacterController
             return;
 
         GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerAttackHit", true );
-        healthController.HealthController_TakeDamage( baseAttackDamage );
+        HealthController.HealthControllerDamageResult result = healthController.HealthController_TakeDamage( baseAttackDamage );
+        if ( result == HealthController.HealthControllerDamageResult.eDead )
+            GetComponent<RandomAudioPlayer>().PlayRandomSound( "enemyDeath", true );
     }
 
     private bool PlayerController_GetDirectionFromInput( ref Vector3 outputDirection )

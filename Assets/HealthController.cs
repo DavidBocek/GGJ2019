@@ -41,21 +41,26 @@ public class HealthController : MonoBehaviour
     {
         currHealth = maxHealth;
     }
-
+    
     public HealthControllerDamageResult HealthController_TakeDamage( int damage )
     {
         currHealth -= damage;
 
         if ( currHealth <= 0 )
         {
-			flashRenderer.material.SetFloat("_FlashAmount", 0f);
+            if ( flashRenderer != null )
+			    flashRenderer.material.SetFloat("_FlashAmount", 0f);
+
             gameObject.SendMessageUpwards( "OnDeath", damage, SendMessageOptions.DontRequireReceiver ); // send upwards for spawners
             return HealthControllerDamageResult.eDead;
         }
-
-		flashRenderer.material.SetFloat("_FlashAmount", 0f);
-		flashRenderer.material.DOFloat(1f, "_FlashAmount", flashDuration / 2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InQuad);
-
+        
+        if ( flashRenderer != null )
+        {
+            flashRenderer.material.SetFloat("_FlashAmount", 0f);
+		    flashRenderer.material.DOFloat(1f, "_FlashAmount", flashDuration / 2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InQuad);
+        }
+		
         gameObject.SendMessageUpwards( "OnDamage", damage, SendMessageOptions.DontRequireReceiver );
         return HealthControllerDamageResult.eDamaged;
     }
@@ -63,5 +68,10 @@ public class HealthController : MonoBehaviour
     public void HealthController_Heal( int healAmount )
     {
         currHealth = Mathf.Min( maxHealth, currHealth + healAmount );
+    }
+
+    public bool HealthController_CanHeal()
+    {
+        return currHealth < maxHealth;
     }
 }

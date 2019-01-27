@@ -36,7 +36,7 @@ public class ProjectileBehaviour : MonoBehaviour
 			}
 			GameObject impactFXInst = GameObject.Instantiate( impactFX, hit.point, Quaternion.identity );
 			impactFXInst.transform.rotation = Quaternion.Slerp( Quaternion.LookRotation( hit.normal ), Quaternion.LookRotation( Vector3.up, Vector3.back ), .2f );
-			Destroy( impactFX, 1f );
+			Destroy( impactFXInst, 1.0f );
 			Destroy( gameObject );
 		}
 		else if ( Time.time > m_spawnTime + TIME_TO_LIVE )

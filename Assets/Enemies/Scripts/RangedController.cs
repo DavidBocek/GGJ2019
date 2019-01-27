@@ -52,7 +52,7 @@ public class RangedController : BaseCharacterController
 	private bool m_movingForward = true;
 	private Vector3 m_lastKnownPlayerPos = Vector3.zero;
 	private GameObject m_player;
-
+    private AudioSource m_chargeSource;
 
 	void Start()
 	{
@@ -164,6 +164,7 @@ public class RangedController : BaseCharacterController
 				m_canTranslate = false;
 				animator.SetTrigger("BeginCharge");
 				eyeChargeWarning.enabled = true;
+                m_chargeSource = gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "beamCharge", false );
 				foreach (ParticleSystem system in eyeChargeFXs)
 				{
 					system.Play();
@@ -233,6 +234,9 @@ public class RangedController : BaseCharacterController
 		eyeChargeWarning.enabled = false;
 		eyeBlastMuzzleFX.Play();
 		Instantiate( projectile, muzzlePoint.position, muzzlePoint.rotation );
+        gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "beamshot", false );
+        if ( m_chargeSource != null )
+            m_chargeSource.Stop();
 	}
 
 	public override void UpdateRotation( ref Quaternion currentRotation, float deltaTime )

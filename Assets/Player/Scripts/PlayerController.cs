@@ -8,20 +8,37 @@ using UnityEngine.Assertions;
 
 public class PlayerController : BaseCharacterController
 {
-    public float maxMoveSpeed = 1.0f;
+    public float maxMoveSpeedPerSecond = 1.0f;
+    public int baseAttackDamage = 10;
     public float attackDuration = 0.2f;
     public float attackCooldown = 0.2f;
+    public float attackMoveForwardSpeedPerSecond = 1.0f;
+    public float dashDuration = 0.5f;
+    public float dashCooldown = 0.2f;
+    public float dashSpeedPerSecond = 1.0f;
     public GameObject attackCollider;
 
     private GameObject pcMainCamera;
     private float nextAttackReadyTime = 0.0f;
     private float attackDeactivateTime = 0.0f;
+    private float nextDashReadyTime = 0.0f;
+    private float dashEndTime = 0.0f;
 
 	void Start()
 	{
 		pcMainCamera = GameObject.FindGameObjectWithTag( "MainCamera" );
         Assert.AreNotEqual( pcMainCamera, null );
+        Assert.AreNotEqual( gameObject.GetComponent<HealthController>(), null );
 	}
+
+    void OnTriggerEnter( Collider collider ) 
+    {
+        HealthController healthController = collider.gameObject.GetComponent<HealthController>();
+        if ( healthController == null )
+            return;
+
+        healthController.HealthController_TakeDamage( baseAttackDamage );
+    }
 
     private bool PlayerController_GetDirectionFromInput( ref Vector3 outputDirection )
     {
@@ -40,8 +57,39 @@ public class PlayerController : BaseCharacterController
         return true;
     }
 
+    private bool PlayerController_CanAct()
+    {
+        if ( attackDeactivateTime != 0.0f )
+            return false;
+
+        if ( dashEndTime != 0.0f )
+            return false;
+        
+        return true;
+    }
+
 	#region updates
-	void Update()
+	private void PlayerController_UpdateInput()
+    {
+        if ( !PlayerController_CanAct() )
+            return;
+        
+        float timeNow = Time.time;
+        if ( Input.GetButton( "Attack" ) && timeNow >= nextAttackReadyTime )
+        {
+            BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
+            attackColliderComp.enabled = true;
+            attackDeactivateTime = timeNow + attackDuration;
+            nextAttackReadyTime = attackDeactivateTime + attackCooldown;
+        }
+        else if ( Input.GetButton( "Dash" ) && timeNow >= nextDashReadyTime )
+        {
+            dashEndTime = timeNow + dashDuration;
+            nextDashReadyTime = dashEndTime + dashCooldown;
+        }
+    }
+    
+    void Update()
 	{
         // debug updates
         Assert.AreNotEqual( attackCollider, null );
@@ -49,25 +97,29 @@ public class PlayerController : BaseCharacterController
         MeshRenderer attackColliderRenderer = attackCollider.GetComponent<MeshRenderer>();
         attackColliderRenderer.enabled = attackColliderComp.enabled;
 
-        // attack updates
+        // input updates
         float timeNow = Time.time;
-        if ( Input.GetButton( "Attack" ) && timeNow >= nextAttackReadyTime )
-        {
-            attackColliderComp.enabled = true;
-            attackDeactivateTime = timeNow + attackDuration;
-            nextAttackReadyTime = attackDeactivateTime + attackCooldown;
-        }
 
+        PlayerController_UpdateInput();
+
+        // post input update
         if ( attackDeactivateTime != 0.0f && timeNow >= attackDeactivateTime )
         {
             attackColliderComp.enabled = false;
             attackDeactivateTime = 0.0f;
+        }
+        if ( dashEndTime != 0.0f && timeNow >= dashEndTime )
+        {
+            dashEndTime = 0.0f;
         }
 
     }
 
 	public override void UpdateRotation(ref Quaternion currentRotation, float deltaTime)
 	{
+        if ( !PlayerController_CanAct() )
+            return;
+
         Vector3 finalDirection = new Vector3();
         if ( !PlayerController_GetDirectionFromInput( ref finalDirection ) )
             return;
@@ -75,18 +127,31 @@ public class PlayerController : BaseCharacterController
         currentRotation.SetLookRotation( finalDirection );
 	}
 
-	public override void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime)
+	public override void UpdateVelocity( ref Vector3 currentVelocity, float deltaTime )
 	{
         currentVelocity = Vector3.zero;
 
-        Vector3 finalDirection = new Vector3();
-        if ( !PlayerController_GetDirectionFromInput( ref finalDirection ) )
-            return;
+        if ( PlayerController_CanAct() )
+        {
+            Vector3 finalDirection = new Vector3();
+            if ( !PlayerController_GetDirectionFromInput( ref finalDirection ) )
+                return;
 
-        Vector2 finalVelocity = maxMoveSpeed * new Vector2( finalDirection.x, finalDirection.z );
+            Vector2 finalVelocity = deltaTime * maxMoveSpeedPerSecond * new Vector2( finalDirection.x, finalDirection.z );
 
-        currentVelocity.x = finalVelocity.x;
-        currentVelocity.z = finalVelocity.y;
+            currentVelocity.x = finalVelocity.x;
+            currentVelocity.z = finalVelocity.y;
+        }
+        else if ( attackDeactivateTime != 0.0f )
+        {
+            Vector3 forward2D = new Vector3( gameObject.transform.forward.x, 0, gameObject.transform.forward.z );
+            currentVelocity = deltaTime * forward2D * attackMoveForwardSpeedPerSecond;
+        }
+        else if ( dashEndTime != 0.0f )
+        {
+            Vector3 forward2D = new Vector3( gameObject.transform.forward.x, 0, gameObject.transform.forward.z );
+            currentVelocity = deltaTime * forward2D * dashSpeedPerSecond;
+        }
         
 	}
 
@@ -117,8 +182,11 @@ public class PlayerController : BaseCharacterController
 		
 	}
 
-	public override bool IsColliderValidForCollisions(Collider coll)
+	public override bool IsColliderValidForCollisions( Collider coll )
 	{
+        if ( dashEndTime != 0.0f && coll.gameObject.tag == "Enemy" )
+            return false;
+
 		return true;
 	}
 

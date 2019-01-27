@@ -305,6 +305,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8246518261152301597}
     m_Modifications:
+    - target: {fileID: 100000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
+      propertyPath: m_Name
+      value: eye
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -348,10 +352,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
-      propertyPath: m_Name
-      value: eye
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 6e2da1858b1a94c498d913e18123a2d9, type: 3}
       propertyPath: m_Controller

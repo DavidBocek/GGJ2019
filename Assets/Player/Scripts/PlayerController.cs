@@ -8,6 +8,7 @@ using UnityEngine.Assertions;
 
 public class PlayerController : BaseCharacterController
 {
+	[Header("Gameplay")]
     public float maxMoveSpeedPerSecond = 1.0f;
     public float fasterWalkScale = 2.0f;
     public int baseAttackDamage = 10;
@@ -19,6 +20,11 @@ public class PlayerController : BaseCharacterController
     public float dashDistance = 1.0f;
     public GameObject attackCollider;
     public float fasterWalkRequiredDuration = 0.5f;
+
+	[Header("FX")]
+	public ParticleSystem footstepsFX;
+	public ParticleSystem dashFootstepsFX;
+	public ParticleSystem deathFX;
 
     private GameObject pcMainCamera;
     private float nextAttackReadyTime = 0.0f;
@@ -96,9 +102,12 @@ public class PlayerController : BaseCharacterController
 
     public void OnDeath( int damage )
     {
-        // todo(dh): play anim?
+		if ( isDead )
+			return;
+
         isDead = true;
         animator.SetBool( "IsDead", true );
+		deathFX.Play();
     }
 
     private bool PlayerController_CanAct()
@@ -139,6 +148,8 @@ public class PlayerController : BaseCharacterController
             nextDashReadyTime = dashEndTime + dashCooldown;
             
             animator.SetTrigger( "DashTrigger" );
+			dashFootstepsFX.Play();
+			Timing.CallDelayed(dashDuration, delegate { if (dashFootstepsFX.isPlaying) dashFootstepsFX.Stop(); });
         }
     }
     
@@ -261,10 +272,18 @@ public class PlayerController : BaseCharacterController
         if ( isWalking )
         {
             timeSpentWalking += Time.deltaTime;
+			if ( !footstepsFX.isPlaying )
+			{
+				footstepsFX.Play();
+			}
         }
         else
         {
             timeSpentWalking = 0.0f;
+			if ( footstepsFX.isPlaying )
+			{
+				footstepsFX.Stop();
+			}
         }
 	}
 

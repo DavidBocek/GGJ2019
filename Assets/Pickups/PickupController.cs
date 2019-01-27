@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Assertions;
 
 public class PickupController : MonoBehaviour
 {
+	private SecretTextBehaviour m_secretFoundAnnounce;
     private int healAmount = 10;
     private float pickupDelay = 1.0f;
     private float pickupActivateTime = 0.0f;
@@ -48,6 +50,7 @@ public class PickupController : MonoBehaviour
     void Start()
     {
         Assert.AreNotEqual( pickupType, PickupType.eCount );
+		m_secretFoundAnnounce = GameObject.FindWithTag( "SecretText" ).GetComponent<SecretTextBehaviour>();
     }
 
     // Update is called once per frame
@@ -69,7 +72,9 @@ public class PickupController : MonoBehaviour
     {
         if ( collider.gameObject.tag == "Player" )
         {
-            collider.gameObject.GetComponent<HealthController>().HealthController_Heal( healAmount );
+			//collider.gameObject.GetComponent<HealthController>().HealthController_Heal( healAmount );
+
+			m_secretFoundAnnounce.Announce();
 
             Sequence pickupAnimSequence = DOTween.Sequence();
             pickupAnimSequence.Append( transform.DOScale( bounceUpScaleVal, bounceUpToNormalTime ).SetEase( Ease.InQuad ) );

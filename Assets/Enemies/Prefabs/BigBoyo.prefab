@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2052005827301176231}
   - component: {fileID: 2052005827301176228}
   - component: {fileID: 2052005827301176229}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 2052005827697021155}
   - component: {fileID: 2052005827697021152}
   - component: {fileID: 2052005827697021153}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 2052005827874347921}
   - component: {fileID: 2052005827874347923}
   - component: {fileID: 2052005827874347920}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052005827874347926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.75}
+  m_LocalPosition: {x: 0, y: 0, z: 2.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2052005828204242625}
@@ -227,7 +227,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1, z: 2}
+  m_Size: {x: 4, y: 1, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2052005827874347920
 MonoBehaviour:
@@ -258,9 +258,9 @@ GameObject:
   - component: {fileID: 2052005828204242628}
   - component: {fileID: 2052005828204242629}
   - component: {fileID: 9183935442744565410}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BigBoyo
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -307,10 +307,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2052005828204242628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,9 +326,9 @@ MonoBehaviour:
   CharacterController: {fileID: 2052005828204242629}
   Capsule: {fileID: 2052005828204242631}
   Rigidbody: {fileID: 2052005828204242630}
-  CapsuleRadius: 0.5
+  CapsuleRadius: 1
   CapsuleHeight: 2
-  CapsuleYOffset: 1
+  CapsuleYOffset: 0
   CapsulePhysicsMaterial: {fileID: 0}
   DetectDiscreteCollisions: 0
   GroundDetectionExtraDistance: 0
@@ -358,16 +358,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4133cda3dae6e44ba54f4ea9437d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeedTowardPlayer: 0
+  moveSpeedTowardPlayer: 5
   attackDamage: 0
-  maxDistCanSeeIdle: 0
-  maxDistCanSeeCombat: 0
-  attackBeginDistance: 0
-  attackTime: 0
-  delayBeforeAttack: 0
-  minMoveTime: 0
-  attackCollider: {fileID: 0}
-  fireBoxPrefab: {fileID: 0}
+  maxDistCanSeeIdle: 40
+  maxDistCanSeeCombat: 60
+  attackBeginDistance: 2.75
+  attackTime: 2
+  delayBeforeAttack: 1
+  minMoveTime: 0.4
+  attackCollider: {fileID: 2052005827874347926}
+  fireBoxPrefab: {fileID: 216134767718866281, guid: 1077e4e0c98a6d9449525417ee86414c,
+    type: 3}
   deathFX: {fileID: 0}
 --- !u!114 &9183935442744565410
 MonoBehaviour:

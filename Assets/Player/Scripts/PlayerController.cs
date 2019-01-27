@@ -28,6 +28,7 @@ public class PlayerController : BaseCharacterController
     private int legsLayerIndex = -1;
 
     private bool debug_drawAttackCollider = false;
+    private bool isDead = false;
 
 	void Start()
 	{
@@ -93,23 +94,15 @@ public class PlayerController : BaseCharacterController
     public void OnDeath( int damage )
     {
         // todo(dh): play anim?
-
-
-        if ( currentSpawnPoint == null )
-        {
-            Debug.LogWarning( "No spawn point on player death!" );
-        }
-        else
-        {
-            gameObject.GetComponent<KinematicCharacterMotor>().SetPosition( currentSpawnPoint.transform.position );
-        }
-
-        gameObject.GetComponent<HealthController>().HealthController_HealToFull();
-
+        isDead = true;
+        animator.SetBool( "IsDead", true );
     }
 
     private bool PlayerController_CanAct()
     {
+        if ( isDead )
+            return false;
+
         if ( attackDeactivateTime != 0.0f )
             return false;
 
@@ -134,13 +127,14 @@ public class PlayerController : BaseCharacterController
             nextAttackReadyTime = attackDeactivateTime + attackCooldown;
 
             animator.SetTrigger( "AttackTrigger" );
+
+            animator.SetLayerWeight( legsLayerIndex, 1.0f );
         }
         else if ( Input.GetButtonDown( "Dash" ) && timeNow >= nextDashReadyTime )
         {
             dashEndTime = timeNow + dashDuration;
             nextDashReadyTime = dashEndTime + dashCooldown;
             
-            animator.SetLayerWeight( legsLayerIndex, 0.0f );
             animator.SetTrigger( "DashTrigger" );
         }
     }
@@ -159,13 +153,38 @@ public class PlayerController : BaseCharacterController
 
         if ( Input.GetKeyDown( "p" ) )
         {
-            gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 10 );
+            gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 50 );
         }
 
         // input updates
         float timeNow = Time.time;
 
+        if ( isDead )
+        {
+            if ( Input.GetButtonDown( "Submit" ) )
+            {
+                if ( currentSpawnPoint == null )
+                {
+                    Debug.LogWarning( "No spawn point on player death!" );
+                }
+                else
+                {
+                    gameObject.GetComponent<KinematicCharacterMotor>().SetPosition( currentSpawnPoint.transform.position );
+                }
+
+                gameObject.GetComponent<HealthController>().HealthController_HealToFull();
+
+                isDead = false;
+                animator.SetBool( "IsDead", false );
+            }
+        }
+
         PlayerController_UpdateInput();
+
+        if ( timeNow >= nextAttackReadyTime )
+        {
+            animator.SetLayerWeight( legsLayerIndex, 0.0f );
+        }
 
         // post input update
         if ( attackDeactivateTime != 0.0f && timeNow >= attackDeactivateTime )
@@ -175,7 +194,6 @@ public class PlayerController : BaseCharacterController
         }
         if ( dashEndTime != 0.0f && timeNow >= dashEndTime )
         {
-            // animator.SetLayerWeight( legsLayerIndex, 1.0f );
             dashEndTime = 0.0f;
         }
 
@@ -196,6 +214,7 @@ public class PlayerController : BaseCharacterController
 	public override void UpdateVelocity( ref Vector3 currentVelocity, float deltaTime )
 	{
         currentVelocity = Vector3.zero;
+        bool isWalking = false;
 
         if ( PlayerController_CanAct() )
         {
@@ -203,6 +222,7 @@ public class PlayerController : BaseCharacterController
             if ( PlayerController_GetDirectionFromInput( ref finalDirection ) )
             {
                 Vector2 finalVelocity = deltaTime * maxMoveSpeedPerSecond * new Vector2( finalDirection.x, finalDirection.z );
+                isWalking = true;
 
                 currentVelocity.x = finalVelocity.x;
                 currentVelocity.z = finalVelocity.y;
@@ -219,7 +239,7 @@ public class PlayerController : BaseCharacterController
             currentVelocity = deltaTime * forward2D * dashDistance / dashDuration;
         }
 
-        animator.SetBool( "IsWalking", currentVelocity != Vector3.zero );
+        animator.SetBool( "IsWalking", isWalking );
 	}
 
 	public override void AfterCharacterUpdate(float deltaTime)

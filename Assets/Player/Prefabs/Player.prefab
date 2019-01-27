@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4709280223560526262}
   - component: {fileID: 4709280223560526257}
   - component: {fileID: 3727847800699037246}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3725367591131384868}
   - component: {fileID: 4675931281251446391}
   - component: {fileID: 3387888690391639816}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,6 +234,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4709280223560526261}
     m_Modifications:
+    - target: {fileID: 100000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Name
+      value: skele
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100026, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100028, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -278,10 +294,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
-      propertyPath: m_Name
-      value: skele
-      objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
       propertyPath: m_Controller
       value: 
@@ -289,6 +301,54 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100024, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100020, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b0c6992c15ea9a4c8c90997e7dd91a8, type: 3}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using KinematicCharacterController;
+using UnityEngine.Assertions;
 
 public class ViewPointController : MonoBehaviour
 {
@@ -17,15 +18,16 @@ public class ViewPointController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerObject = GameObject.FindWithTag( "Player" );
+        Assert.AreNotEqual( playerObject, null );
+        gameObject.transform.position = playerObject.transform.position;
+
         cameraTransform.LookAt( gameObject.transform.position );
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ( playerObject == null )
-            playerObject = GameObject.FindWithTag( "Player" );
-
         Vector3 playerVelVector = playerObject.GetComponent<KinematicCharacterMotor>().Velocity;
         float playerVelVectorSqMagnitude = playerVelVector.sqrMagnitude;
         float forwardPointOffsetScale = 0.0f;

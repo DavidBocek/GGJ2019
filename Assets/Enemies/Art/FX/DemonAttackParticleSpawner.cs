@@ -7,9 +7,8 @@ public class DemonAttackParticleSpawner : MonoBehaviour
 	public BoxCollider box;
 	public GameObject fireFX;
 	public int numFiresToSpawn;
-	public float fireBurnDuration;
 
-	public void SpawnParticles()
+	public void SpawnParticles( float fireBurnDuration )
 	{
 		float boxX = box.size.x / 2f * box.transform.localScale.x;
 		float boxY = box.size.y / 2f * box.transform.localScale.y;
@@ -29,6 +28,7 @@ public class DemonAttackParticleSpawner : MonoBehaviour
 			noise.frequency *= Random.Range(0.8f, 1.4f);
 			var main = ps.main;
 			main.duration = fireBurnDuration;
+			ps.Play();
 			Destroy(fireFXInst, fireBurnDuration + 1f);
 		}
 	}

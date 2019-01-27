@@ -7,44 +7,37 @@ using KinematicCharacterController;
 
 public class SwarmController : BaseCharacterController
 {
-	public float targetDistFromPlayer;
-	public float moveSpeedMax;
+	public float moveSpeedTowardPlayer;
+	public float addedLungeSpeed;
+	public float lungeDuration;
+	public int attackDamage;
 	public float maxDistCanSeeIdle;
 	public float maxDistCanSeeCombat;
-	public float moveTime;
-	public float aimTime;
-	public float fireTime;
-	public float delayBeforeFire;
-	public GameObject projectile;
-	public Transform muzzlePoint;
-	public AnimationCurve speedCurve = new AnimationCurve(
-		new Keyframe( 0f, 0f ),
-		new Keyframe( 0.25f, 1f ),
-		new Keyframe( 0.75f, 1f ),
-		new Keyframe( 1f, 0f ) );
+	public float attackBeginDistance;
+	public float attackTime;
+	public float delayBeforeAttack;
+	public GameObject attackCollider;
 
-	private enum eRangedAIState
+	private enum eSwarmAIState
 	{
 		IDLE,
 		MOVING,
-		AIMING,
-		FIRING
+		ATTACKING
 	}
 
 	private float m_timeEnteredCurrentState = -1f;
-	private float m_speedEvalT = 0f;
-	private eRangedAIState m_currentState = eRangedAIState.IDLE;
+	private eSwarmAIState m_currentState = eSwarmAIState.IDLE;
 	private bool m_canRotate = true;
 	private bool m_canTranslate = true;
 	private bool m_canSeePlayer = false;
-	private bool m_movingForward = true;
+	private bool m_doLunge = false;
 	private Vector3 m_lastKnownPlayerPos = Vector3.zero;
 	private GameObject m_player;
 
 
 	void Start()
 	{
-		EnterState( eRangedAIState.IDLE );
+		EnterState( eSwarmAIState.IDLE );
 		m_player = GameObject.FindWithTag( "Player" );
 	}
 
@@ -52,6 +45,8 @@ public class SwarmController : BaseCharacterController
 	void Update()
 	{
 		UpdateState();
+
+		Debug.Log( m_doLunge );
 	}
 
 	private void UpdateState()
@@ -61,15 +56,17 @@ public class SwarmController : BaseCharacterController
 
 		Vector3 dirToPlayer = (m_player.transform.position - transform.position).normalized;
 		RaycastHit hit;
+		float distToPlayer = float.MaxValue;
 		m_canSeePlayer = false;
 
-		float distToCast = m_currentState == eRangedAIState.IDLE ? maxDistCanSeeIdle : maxDistCanSeeCombat;
+		float distToCast = m_currentState == eSwarmAIState.IDLE ? maxDistCanSeeIdle : maxDistCanSeeCombat;
 		if ( Physics.Raycast( transform.position, dirToPlayer, out hit, distToCast, layerMask ) )
 		{
 			if ( hit.collider.gameObject.CompareTag( "Player" ) )
 			{
 				m_canSeePlayer = true;
 				m_lastKnownPlayerPos = hit.collider.gameObject.transform.position;
+				distToPlayer = hit.distance;
 			}
 		}
 
@@ -77,66 +74,45 @@ public class SwarmController : BaseCharacterController
 
 		switch ( m_currentState )
 		{
-			case eRangedAIState.IDLE:
+			case eSwarmAIState.IDLE:
 				if ( m_canSeePlayer )
 				{
-					EnterState( eRangedAIState.AIMING );
+					EnterState( eSwarmAIState.MOVING );
 				}
 				break;
-			case eRangedAIState.AIMING:
-				if ( timeSinceCurState >= aimTime )
+			case eSwarmAIState.MOVING:
+				if ( distToPlayer < attackBeginDistance )
 				{
-					EnterState( eRangedAIState.FIRING );
+					EnterState( eSwarmAIState.ATTACKING );
 				}
 				break;
-			case eRangedAIState.FIRING:
-				if ( timeSinceCurState >= fireTime )
+			case eSwarmAIState.ATTACKING:
+				if ( timeSinceCurState >= attackTime )
 				{
-					EnterState( eRangedAIState.MOVING );
-				}
-				break;
-			case eRangedAIState.MOVING:
-				if ( timeSinceCurState >= moveTime )
-				{
-					if ( m_canSeePlayer )
-					{
-						EnterState( eRangedAIState.AIMING );
-					}
-					else
-					{
-						EnterState( eRangedAIState.IDLE );
-					}
+					EnterState( eSwarmAIState.MOVING );
 				}
 				break;
 		}
 	}
 
-	private void EnterState( eRangedAIState newState )
+	private void EnterState( eSwarmAIState newState )
 	{
-		eRangedAIState oldState = m_currentState;
+		eSwarmAIState oldState = m_currentState;
 
 		switch ( newState )
 		{
-			case eRangedAIState.IDLE:
+			case eSwarmAIState.IDLE:
 				m_canRotate = false;
 				m_canTranslate = false;
 				break;
-			case eRangedAIState.MOVING:
+			case eSwarmAIState.MOVING:
 				m_canRotate = true;
 				m_canTranslate = true;
-				Vector3 vecToPlayer = m_lastKnownPlayerPos - transform.position;
-				float distanceToPlayer = vecToPlayer.magnitude;
-				m_movingForward = distanceToPlayer > targetDistFromPlayer;
 				break;
-			case eRangedAIState.AIMING:
-				m_canRotate = true;
-				m_canTranslate = false;
-				Timing.RunCoroutine( AimThread() );
-				break;
-			case eRangedAIState.FIRING:
+			case eSwarmAIState.ATTACKING:
 				m_canRotate = false;
-				m_canTranslate = false;
-				Timing.CallDelayed( delayBeforeFire, Attack );
+				m_canTranslate = true;
+				Timing.RunCoroutineSingleton( Attack(), gameObject, SingletonBehavior.Abort );
 				break;
 		}
 
@@ -144,29 +120,30 @@ public class SwarmController : BaseCharacterController
 		m_currentState = newState;
 	}
 
-	private IEnumerator<float> AimThread()
-	{
-		yield return Timing.WaitForOneFrame;
 
-		while ( m_currentState == eRangedAIState.AIMING || m_currentState == eRangedAIState.FIRING )
-		{
-			if ( m_currentState == eRangedAIState.AIMING )
-			{
-				Debug.DrawRay( transform.position, m_lastKnownPlayerPos - transform.position, Color.red );
-			}
-			else
-			{
-				Debug.DrawRay( transform.position, transform.forward * 100f, Color.green );
-			}
-			yield return Timing.WaitForOneFrame;
-		}
+	private IEnumerator<float> Attack()
+	{
+		yield return Timing.WaitForSeconds( delayBeforeAttack );
+
+		m_doLunge = true;
+		BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
+		attackColliderComp.enabled = true;
+
+		yield return Timing.WaitForSeconds( lungeDuration );
+
+		m_doLunge = false;
+		attackColliderComp.enabled = false;
 
 		yield break;
 	}
 
-	private void Attack()
+	private void OnTriggerEnter( Collider collider )
 	{
-		Instantiate( projectile, muzzlePoint.position, muzzlePoint.rotation );
+		HealthController healthController = collider.gameObject.GetComponent<HealthController>();
+		if ( healthController == null || !collider.gameObject.CompareTag( "Player" ) )
+			return;
+
+		healthController.HealthController_TakeDamage( attackDamage );
 	}
 
 	public override void UpdateRotation( ref Quaternion currentRotation, float deltaTime )
@@ -188,30 +165,19 @@ public class SwarmController : BaseCharacterController
 		if ( !m_canTranslate )
 		{
 			currentVelocity = Vector3.zero;
-			m_speedEvalT = 0;
 			return;
 		}
 		Vector3 vecToPlayer = m_lastKnownPlayerPos - transform.position;
 		float distanceToPlayer = vecToPlayer.magnitude;
 
 		Vector3 localVel = Vector3.zero;// transform.InverseTransformDirection( currentVelocity );
-		m_speedEvalT = Mathf.Min( m_speedEvalT, 1f );
 
-		if ( m_movingForward )
+		localVel.z = m_currentState == eSwarmAIState.ATTACKING ? moveSpeedTowardPlayer / 1.5f : moveSpeedTowardPlayer;
+
+		if ( m_doLunge )
 		{
-			localVel.z = speedCurve.Evaluate( m_speedEvalT ) * moveSpeedMax;
-
-			if ( distanceToPlayer < ( targetDistFromPlayer / 2f ) )
-			{
-				m_speedEvalT += ( 2f * deltaTime ) / moveTime;
-			}
+			localVel.z += addedLungeSpeed;
 		}
-		else
-		{
-			localVel.z = speedCurve.Evaluate( m_speedEvalT ) * moveSpeedMax * -1;
-		}
-
-		m_speedEvalT += deltaTime / moveTime;
 
 		currentVelocity = transform.TransformDirection( localVel );
 	}

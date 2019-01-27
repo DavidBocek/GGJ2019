@@ -8,11 +8,15 @@ public class FireBoxBehaviour : MonoBehaviour
 	public float secondsBetweenTicks;
 	public float lifeTime;
 	public BoxCollider boxCollider;
+    public float fireSoundDelay = 0.2f;
 
 	private float m_lastTickTime;
 	private float m_deathTime;
 	private DemonAttackParticleSpawner particles;
 	private TraceBoxWithLine lineDrawer;
+    private float m_nextFireSoundTime;
+    private AudioSource m_fireSource = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +26,21 @@ public class FireBoxBehaviour : MonoBehaviour
 		lineDrawer = GetComponent<TraceBoxWithLine>();
 		lineDrawer.DrawLineFX( lifeTime );
 		m_deathTime = Time.time + lifeTime;
+        m_nextFireSoundTime = Time.time;
 	}
 
     // Update is called once per frame
     void Update()
     {
+        if ( Time.time >= m_nextFireSoundTime )
+        {
+            if ( m_fireSource != null )
+                m_fireSource.Stop();
+
+            m_fireSource = GetComponent<RandomAudioPlayer>().PlayRandomSound( "demonFire", true );
+            m_nextFireSoundTime = Time.time + fireSoundDelay;
+        }
+
         if ( Time.time > m_deathTime )
 		{
 			Destroy( gameObject );

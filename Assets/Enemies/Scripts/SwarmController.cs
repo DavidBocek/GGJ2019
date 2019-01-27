@@ -157,6 +157,8 @@ public class SwarmController : BaseCharacterController
 		BoxCollider attackColliderComp = attackCollider.GetComponent<BoxCollider>();
 		attackColliderComp.enabled = true;
 
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "batAttack", true );
+
 		m_animator.SetTrigger("Attack");
 
 		yield return Timing.WaitForSeconds( lungeDuration );

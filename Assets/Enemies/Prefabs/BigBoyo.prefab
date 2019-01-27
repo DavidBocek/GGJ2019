@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 2052005828204242628}
   - component: {fileID: 2052005828204242629}
   - component: {fileID: 9183935442744565410}
+  - component: {fileID: 518091663406539203}
   m_Layer: 2
   m_Name: BigBoyo
   m_TagString: Enemy
@@ -206,6 +207,28 @@ MonoBehaviour:
   flashRenderer: {fileID: 2242346277507534249}
   flashDuration: 0.15
   currHealth: 0
+--- !u!114 &518091663406539203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052005828204242490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b09f2c5ac29add4198545f5a27b13d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  publicClipCollections:
+  - collectionName: demonFireAttack
+    volume: 0.4
+    clips:
+    - {fileID: 8300000, guid: 9510204887cf40043a5ba1f9a7091792, type: 3}
+    - {fileID: 8300000, guid: 2c98505cd53bd5b47a9375821830a557, type: 3}
+    - {fileID: 8300000, guid: af5e1e102b4b227479ab774f4d272880, type: 3}
+    - {fileID: 8300000, guid: 0d0451baafe7e814bb425bf8e75f11f3, type: 3}
+    - {fileID: 8300000, guid: fa1060f2c2178364382a682dfc64bff7, type: 3}
+    - {fileID: 8300000, guid: aa4bb2d8c05627f4e87757126b1499dc, type: 3}
 --- !u!1 &2132683004451747794
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +270,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: demon
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+      propertyPath: m_Bones.Array.data[0]
+      value: 
+      objectReference: {fileID: 2242346277513108619}
+    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+      propertyPath: m_Bones.Array.data[1]
+      value: 
+      objectReference: {fileID: 2242346277513108609}
+    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 2242346277513108619}
     - target: {fileID: 400000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -311,18 +346,6 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
-      propertyPath: m_Bones.Array.data[0]
-      value: 
-      objectReference: {fileID: 2242346277513108619}
-    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
-      propertyPath: m_Bones.Array.data[1]
-      value: 
-      objectReference: {fileID: 2242346277513108609}
-    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
-      propertyPath: m_RootBone
-      value: 
-      objectReference: {fileID: 2242346277513108619}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
 --- !u!4 &2242346277513108617 stripped

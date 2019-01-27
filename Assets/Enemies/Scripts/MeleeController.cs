@@ -148,7 +148,9 @@ public class MeleeController : BaseCharacterController
 
 		Instantiate( fireBoxPrefab, attackCollider.transform.position, attackCollider.transform.rotation );
 		m_animator.SetTrigger("Attack");
-		GameObject attackFXInst = GameObject.Instantiate(attackFX, muzzle.position, muzzle.rotation);
+		
+        gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "demonFireAttack", true );
+        GameObject attackFXInst = GameObject.Instantiate(attackFX, muzzle.position, muzzle.rotation);
 		Destroy(attackFXInst, 3f);
 
 		yield break;

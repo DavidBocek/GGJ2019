@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SetSpawnPointTrigger : MonoBehaviour
 {
-	GameObject spawnPoint;
+	public GameObject spawnPoint;
 
 	private void OnTriggerEnter(Collider other)
 	{

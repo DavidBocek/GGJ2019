@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6961162217016999682}
   - component: {fileID: 6462254298696743751}
   - component: {fileID: 2563857943862319870}
+  - component: {fileID: 8985786866302757015}
   m_Layer: 2
   m_Name: FireBox
   m_TagString: Untagged
@@ -78,6 +79,7 @@ MonoBehaviour:
   secondsBetweenTicks: 0.5
   lifeTime: 5
   boxCollider: {fileID: 1629136238322620585}
+  fireSoundDelay: 0.25
 --- !u!114 &2563857943862319870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,3 +95,31 @@ MonoBehaviour:
   lineFXObj: {fileID: 1242722002288221327, guid: a1f4dbe205526d4409c9b1ad4ab90cc7,
     type: 3}
   box: {fileID: 1629136238322620585}
+--- !u!114 &8985786866302757015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216134767718866281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b09f2c5ac29add4198545f5a27b13d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  publicClipCollections:
+  - collectionName: demonFire
+    volume: 0.3
+    clips:
+    - {fileID: 8300000, guid: 03143ccc28a267c4598b53682c046f54, type: 3}
+    - {fileID: 8300000, guid: 1b363d5f28987f246a2a99a2580d9cab, type: 3}
+    - {fileID: 8300000, guid: cd2a3f3b61214c1438b2ccf0779465cf, type: 3}
+    - {fileID: 8300000, guid: 864d1ff36aec1f4469559016bf831e67, type: 3}
+    - {fileID: 8300000, guid: d31aa398fac7be740bff2e4a97aefd5e, type: 3}
+    - {fileID: 8300000, guid: 9a864899ea9614a4f834be602a3b55ca, type: 3}
+    - {fileID: 8300000, guid: 0306e6d70b3b6554e98ac5ef759a3370, type: 3}
+    - {fileID: 8300000, guid: f1da44c1181628347a43c6578c89e3c7, type: 3}
+    - {fileID: 8300000, guid: e0d33da6f5f44534e8b911376d6061ef, type: 3}
+    - {fileID: 8300000, guid: 819ad843beced9849869bc1b456c7dfc, type: 3}
+    - {fileID: 8300000, guid: 98e65b6cdd258c746bb25262288997b0, type: 3}
+    - {fileID: 8300000, guid: 7a4e10d66f849214d92133467a096bfe, type: 3}

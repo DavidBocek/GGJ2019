@@ -23,6 +23,8 @@ public class RangedController : BaseCharacterController
 		new Keyframe( 0.75f, 1f ),
 		new Keyframe( 1f, 0f ) );
 
+	private Animator animator;
+
 	private enum eRangedAIState
 	{
 		IDLE,
@@ -46,6 +48,8 @@ public class RangedController : BaseCharacterController
 	{
 		EnterState( eRangedAIState.IDLE );
 		m_player = GameObject.FindWithTag( "Player" );
+
+		animator = GetComponentInChildren<Animator>();
 	}
 
 	#region updates
@@ -131,11 +135,13 @@ public class RangedController : BaseCharacterController
 			case eRangedAIState.AIMING:
 				m_canRotate = true;
 				m_canTranslate = false;
+				animator.SetTrigger("BeginAim");
 				Timing.RunCoroutine( AimThread() );
 				break;
 			case eRangedAIState.FIRING:
 				m_canRotate = false;
 				m_canTranslate = false;
+				animator.SetTrigger("BeginCharge");
 				Timing.CallDelayed( delayBeforeFire, Attack );
 				break;
 		}
@@ -166,6 +172,7 @@ public class RangedController : BaseCharacterController
 
 	private void Attack()
 	{
+		animator.SetTrigger("Attack");
 		Instantiate( projectile, muzzlePoint.position, muzzlePoint.rotation );
 	}
 

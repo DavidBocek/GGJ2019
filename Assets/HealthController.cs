@@ -27,7 +27,10 @@ public class HealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if ( gameObject.CompareTag( "Player" ) )
+		{
+			Debug.Log( currHealth );
+		}
     }
     
     public void HealthController_HealToFull()

@@ -106,6 +106,7 @@ public class PlayerController : BaseCharacterController
 
     public void OnDamage( int damage )
     {
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerTakeDamage", true );
         print( "player took damage " + damage.ToString() );
     }
 
@@ -113,9 +114,11 @@ public class PlayerController : BaseCharacterController
     {
 		if ( isDead )
 			return;
-
+        
         isDead = true;
         animator.SetBool( "IsDead", true );
+
+        GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerDeath", true );
 		deathFX.Play();
     }
 
@@ -218,6 +221,7 @@ public class PlayerController : BaseCharacterController
 
                 isDead = false;
                 animator.SetBool( "IsDead", false );
+                GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerRespawn", true );
             }
         }
 

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 134156896834273413}
   - component: {fileID: 2930260034517063029}
   - component: {fileID: 3520475870054650180}
+  - component: {fileID: 2308495285125056078}
   m_Layer: 2
   m_Name: RangedBoyo
   m_TagString: Enemy
@@ -329,6 +330,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyVisualsObject: {fileID: 9201667003281420045}
+--- !u!114 &2308495285125056078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4850889843173508505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b09f2c5ac29add4198545f5a27b13d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  publicClipCollections:
+  - collectionName: beamCharge
+    volume: 0.2
+    clips:
+    - {fileID: 8300000, guid: deae2540a80deb045b386f739a7aaff5, type: 3}
+    - {fileID: 8300000, guid: 4c4cdb6d6c0a81246af2083032e558ba, type: 3}
+    - {fileID: 8300000, guid: 82876bd3c8247e84c8e33f5cc0fd3552, type: 3}
+    - {fileID: 8300000, guid: d7e18d773ea68b845b2d6be0d09d154e, type: 3}
+  - collectionName: beamshot
+    volume: 0
+    clips:
+    - {fileID: 8300000, guid: 087bf1dbd1b6c5a41bf729bdf64e8723, type: 3}
+    - {fileID: 8300000, guid: 02b7529f9b3769d4d9f3b993bb3f8e27, type: 3}
+    - {fileID: 8300000, guid: 96fad87c9fe9abe418b4ff51ce1547dd, type: 3}
+    - {fileID: 8300000, guid: ce29f1f798a35df4fa7ba38593fe9ef5, type: 3}
+    - {fileID: 8300000, guid: 6c7e695e9fdad544088bbf92c63044e8, type: 3}
+    - {fileID: 8300000, guid: c3a01b85485ae2a4aae169fd48b515ff, type: 3}
 --- !u!1001 &944406878
 PrefabInstance:
   m_ObjectHideFlags: 0

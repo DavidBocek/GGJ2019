@@ -313,6 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 40
+  flashRenderer: {fileID: 9201667003295015437}
+  flashDuration: 0.15
 --- !u!1001 &944406878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -745,6 +747,12 @@ PrefabInstance:
 --- !u!4 &9201667003281191725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 6e2da1858b1a94c498d913e18123a2d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 9201667003281320365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &9201667003295015437 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700000, guid: 6e2da1858b1a94c498d913e18123a2d9,
     type: 3}
   m_PrefabInstance: {fileID: 9201667003281320365}
   m_PrefabAsset: {fileID: 0}

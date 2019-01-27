@@ -5,6 +5,7 @@ ShaderImporter:
   defaultTextures:
   - _Albedo: {fileID: 2800000, guid: 3be99043bde52e54d935205855ac6638, type: 3}
   - _Emission: {fileID: 2800000, guid: f00f0daf9ac418c4192ceb6cdcf61a24, type: 3}
+  - _Rough: {fileID: 2800000, guid: 1a245f29bf8df6646bd433db6bace263, type: 3}
   nonModifiableTextures: []
   userData: 
   assetBundleName: 

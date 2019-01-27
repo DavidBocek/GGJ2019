@@ -149,9 +149,9 @@ MonoBehaviour:
   maxDistCanSeeIdle: 20
   maxDistCanSeeCombat: 30
   moveTime: 1
-  aimTime: 0.75
-  fireTime: 0.75
-  delayBeforeFire: 0.25
+  aimTime: 1.5
+  fireTime: 1.5
+  delayBeforeFire: 1
   projectile: {fileID: 5413270631143692395, guid: 7c8235224aa00634a9fd0cfa18d8bc4d,
     type: 3}
   muzzlePoint: {fileID: 2685604408538742111}

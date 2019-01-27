@@ -1,60 +1,17 @@
 fileFormatVersion: 2
-guid: 8b0c6992c15ea9a4c8c90997e7dd91a8
+guid: 613d5cd78e6f98a44a1bc054e89d2aa7
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Base
-    100004: Hand.L
-    100006: Hand.L_end
-    100008: Hand.R
-    100010: Hand.R_end
-    100012: Head
-    100014: Jaw
-    100016: Jaw_end
-    100018: Leg.L
-    100020: Leg.L_end
-    100022: Leg.R
-    100024: Leg.R_end
-    100026: SkelArmature
-    100028: Skele
     400000: //RootNode
-    400002: Base
-    400004: Hand.L
-    400006: Hand.L_end
-    400008: Hand.R
-    400010: Hand.R_end
-    400012: Head
-    400014: Jaw
-    400016: Jaw_end
-    400018: Leg.L
-    400020: Leg.L_end
-    400022: Leg.R
-    400024: Leg.R_end
-    400026: SkelArmature
-    400028: Skele
     2100000: No Name
     2300000: //RootNode
-    2300002: Skele
     3300000: //RootNode
-    3300002: Skele
-    4300000: Skele
-    7400000: SkelArmature|Attack1
-    7400002: SkelArmature|Attack2
-    7400004: SkelArmature|Attack3
-    7400006: SkelArmature|Dash
-    7400008: SkelArmature|DeadIdle
-    7400010: SkelArmature|Death
-    7400012: SkelArmature|Idle
-    7400014: SkelArmature|Walk
+    4300000: Bat
+    7400000: Bat|Idle
     9500000: //RootNode
-    13700000: Skele
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 3fd9db6eb64a31e41a2c115632d5b24b, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -74,7 +31,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -129,9 +86,9 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: Base
+    rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

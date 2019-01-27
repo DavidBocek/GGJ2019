@@ -4,11 +4,38 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: Base
+    100006: Hand_L
+    100008: Hand_R
+    100010: Head
+    100012: Jaw
+    100014: Leg_L
+    100016: Leg_R
+    100018: Skele
+    100020: Bat
+    100022: SkelArmature
     400000: //RootNode
+    400002: Armature
+    400004: Base
+    400006: Hand_L
+    400008: Hand_R
+    400010: Head
+    400012: Jaw
+    400014: Leg_L
+    400016: Leg_R
+    400018: Skele
+    400020: Bat
+    400022: SkelArmature
     2100000: unnamed
     2300000: //RootNode
+    2300002: Skele
+    2300004: Bat
     3300000: //RootNode
+    3300002: Skele
+    3300004: Bat
     4300000: Skele
+    4300002: Bat
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -308,6 +308,7 @@ public class RangedController : BaseCharacterController
 		Timing.KillCoroutines( gameObject );
 		Destroy( gameObject );
 	}
+
 	public override void OnGroundHit( Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport )
 	{
 

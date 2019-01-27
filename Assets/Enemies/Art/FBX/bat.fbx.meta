@@ -4,14 +4,50 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Base
+    100004: Bat
+    100006: BatArmature
+    100008: Leg.L
+    100010: Leg.L_end
+    100012: Leg.R
+    100014: Leg.R_end
+    100016: Mouf
+    100018: Mouf_end
+    100020: Wing.L
+    100022: Wing.L_end
+    100024: Wing.R
+    100026: Wing.R_end
     400000: //RootNode
+    400002: Base
+    400004: Bat
+    400006: BatArmature
+    400008: Leg.L
+    400010: Leg.L_end
+    400012: Leg.R
+    400014: Leg.R_end
+    400016: Mouf
+    400018: Mouf_end
+    400020: Wing.L
+    400022: Wing.L_end
+    400024: Wing.R
+    400026: Wing.R_end
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
     4300000: Bat
     7400000: Bat|Idle
+    7400002: BatArmature|BatAttack
+    7400004: BatArmature|BatIdle
+    7400006: BatArmature|BatMove
+    7400008: BatArmature|BatWingFlap
     9500000: //RootNode
-  externalObjects: {}
+    13700000: Bat
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 74068d309ce506448b0eac08c0d46b9e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -86,7 +122,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Base
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

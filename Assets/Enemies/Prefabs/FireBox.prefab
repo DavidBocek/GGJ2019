@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dfbbb0ec5b29a4c8e8648eadedd7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerTick: 10
+  damagePerTick: 12
   secondsBetweenTicks: 0.5
   lifeTime: 5
   boxCollider: {fileID: 1629136238322620585}

@@ -95,6 +95,7 @@ public class FirstEncounter : MonoBehaviour
 			AudioSource.PlayClipAtPoint(youDidIt, m_player.transform.position);
 			gate.GateOpen();
 		}
+		m_hasStarted = true;
 	}
 
 	private bool AllUnitsDead(List<GameObject> units)

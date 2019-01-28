@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 2052005828204242629}
   - component: {fileID: 9183935442744565410}
   - component: {fileID: 518091663406539203}
+  - component: {fileID: 9136473155241978457}
   m_Layer: 2
   m_Name: BigBoyo
   m_TagString: Enemy
@@ -158,8 +159,8 @@ MonoBehaviour:
   MaxStableDenivelationAngle: 180
   RigidbodyInteractionType: 0
   PreserveAttachedRigidbodyMomentum: 1
-  HasPlanarConstraint: 0
-  PlanarConstraintAxis: {x: 0, y: 0, z: 1}
+  HasPlanarConstraint: 1
+  PlanarConstraintAxis: {x: 0, y: 1, z: 0}
   StepHandling: 1
   LedgeHandling: 1
   InteractiveRigidbodyHandling: 1
@@ -229,6 +230,19 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0d0451baafe7e814bb425bf8e75f11f3, type: 3}
     - {fileID: 8300000, guid: fa1060f2c2178364382a682dfc64bff7, type: 3}
     - {fileID: 8300000, guid: aa4bb2d8c05627f4e87757126b1499dc, type: 3}
+--- !u!114 &9136473155241978457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052005828204242490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d3c3192ec6e614996013fde6836925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyVisualsObject: {fileID: 2242346277512741033}
 --- !u!1 &2132683004451747794
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +362,12 @@ PrefabInstance:
       objectReference: {fileID: 2242346277513108619}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+--- !u!1 &2242346277512741033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 4274855f22080e1408cdd882d0efb9bf,
+    type: 3}
+  m_PrefabInstance: {fileID: 2242346277512709641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2242346277513108617 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4274855f22080e1408cdd882d0efb9bf,

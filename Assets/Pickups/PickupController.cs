@@ -15,6 +15,8 @@ public class PickupController : MonoBehaviour
     private float nothingToBounceUpTime = 0.2f;
     private float bounceUpToNormalTime = 0.2f;
 
+	private bool hasBeenPickedUp = false;
+
     public enum PickupType
     {
         eHealth,
@@ -70,13 +72,15 @@ public class PickupController : MonoBehaviour
 
     void OnTriggerEnter( Collider collider )
     {
-        if ( collider.gameObject.tag == "Player" )
+        if ( collider.gameObject.tag == "Player" && !hasBeenPickedUp )
         {
 			m_secretFoundAnnounce.Announce();
 
             gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "Pickup", false );
 
-            Sequence pickupAnimSequence = DOTween.Sequence();
+			hasBeenPickedUp = true;
+
+			Sequence pickupAnimSequence = DOTween.Sequence();
             pickupAnimSequence.Append( transform.DOScale( bounceUpScaleVal, bounceUpToNormalTime ).SetEase( Ease.InQuad ) );
             pickupAnimSequence.Append( transform.DOScale( 0.0f, nothingToBounceUpTime ).SetEase( Ease.OutQuad ) );
             pickupAnimSequence.OnComplete( OnPickupAnimComplete );

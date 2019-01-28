@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MEC;
 
 public class SpawnFromSlimeTrigger : MonoBehaviour
 {
@@ -33,11 +34,17 @@ public class SpawnFromSlimeTrigger : MonoBehaviour
 		if (other.CompareTag("Player") && !m_hasTriggered)
 		{
 			m_hasTriggered = true;
-			for (int i=0; i<spawnToDo.count; i++)
-			{
-				SpawnUnit(spawnToDo.type, spawner.transform);
-			}
-				
+
+			Timing.RunCoroutine(Spawn());
+		}
+	}
+
+	private IEnumerator<float> Spawn()
+	{
+		for (int i = 0; i < spawnToDo.count; i++)
+		{
+			SpawnUnit(spawnToDo.type, spawner.transform);
+			yield return Timing.WaitForSeconds(0.2f);
 		}
 	}
 
@@ -47,13 +54,13 @@ public class SpawnFromSlimeTrigger : MonoBehaviour
 		switch (type)
 		{
 			case UnitType.BAT:
-				spawnedUnit = GameObject.Instantiate(batObj, location.position + Vector3.up * (.5f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+				spawnedUnit = GameObject.Instantiate(batObj, location.position + Vector3.up * (1.5f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 				break;
 			case UnitType.DEMON:
-				spawnedUnit = GameObject.Instantiate(demonObj, location.position + Vector3.up * (1f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+				spawnedUnit = GameObject.Instantiate(demonObj, location.position + Vector3.up * (2f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 				break;
 			case UnitType.EYE:
-				spawnedUnit = GameObject.Instantiate(eyeObj, location.position + Vector3.up * (1f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+				spawnedUnit = GameObject.Instantiate(eyeObj, location.position + Vector3.up * (2f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 				break;
 		}
 		if (!spawnedUnit)

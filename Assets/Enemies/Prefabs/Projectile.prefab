@@ -9647,6 +9647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee705e2d029fa24382f6e2b329830a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 30
   impactFX: {fileID: 1481232476921881007, guid: 1ec970ab5fbfad345ab7c4de850ff79e,
     type: 3}

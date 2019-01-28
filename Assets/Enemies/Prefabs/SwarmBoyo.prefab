@@ -211,7 +211,7 @@ MonoBehaviour:
   addedLungeSpeed: 13
   lungeDuration: 0.2
   lungeMinActivationDist: 1
-  attackDamage: 10
+  attackDamage: 3
   maxDistCanSeeIdle: 20
   maxDistCanSeeCombat: 40
   attackBeginDistance: 3

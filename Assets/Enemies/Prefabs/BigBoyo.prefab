@@ -270,6 +270,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: demon
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+      propertyPath: m_Bones.Array.data[0]
+      value: 
+      objectReference: {fileID: 2242346277513108619}
+    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+      propertyPath: m_Bones.Array.data[1]
+      value: 
+      objectReference: {fileID: 2242346277513108609}
+    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 2242346277513108619}
     - target: {fileID: 400000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -334,18 +346,6 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
-      propertyPath: m_Bones.Array.data[0]
-      value: 
-      objectReference: {fileID: 2242346277513108619}
-    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
-      propertyPath: m_Bones.Array.data[1]
-      value: 
-      objectReference: {fileID: 2242346277513108609}
-    - target: {fileID: 13700000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
-      propertyPath: m_RootBone
-      value: 
-      objectReference: {fileID: 2242346277513108619}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4274855f22080e1408cdd882d0efb9bf, type: 3}
 --- !u!4 &2242346277513108617 stripped

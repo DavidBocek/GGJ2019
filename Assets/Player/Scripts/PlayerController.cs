@@ -21,6 +21,7 @@ public class PlayerController : BaseCharacterController
     public float dashDistance = 1.0f;
     public GameObject attackCollider;
     public float fasterWalkRequiredDuration = 0.5f;
+    public AudioClip stageMusic = null;
 
 	[Header("FX")]
 	public ParticleSystem footstepsFX;
@@ -74,6 +75,12 @@ public class PlayerController : BaseCharacterController
         legsLayerIndex = animator.GetLayerIndex( "Legs Layer" );
 
 		swipeTrail = GetComponentInChildren<SwipeTrail>();
+
+        Assert.IsTrue( stageMusic != null );
+        AudioSource stageSource = gameObject.AddComponent<AudioSource>();
+        stageSource.clip = stageMusic;
+        stageSource.loop = true;
+        stageSource.Play();
 	}
 
     void OnTriggerEnter( Collider collider ) 

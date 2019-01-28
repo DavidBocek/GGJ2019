@@ -59,7 +59,7 @@ public class SwarmController : BaseCharacterController
 	void Update()
 	{
 		UpdateState();
-        UpdateSound();
+        //UpdateSound();
 	}
 
     private void UpdateSound()

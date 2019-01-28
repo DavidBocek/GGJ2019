@@ -9,7 +9,7 @@ public class SecretTextBehaviour : MonoBehaviour
 	public string maxSecrets;
 
 	private Text m_textWidget;
-	private int m_secretCount = 0;
+	public int secretCount = 0;
 
 	private const string SECRET_FOUND = "Secret Found!\n";
     // Start is called before the first frame update
@@ -34,8 +34,8 @@ public class SecretTextBehaviour : MonoBehaviour
 
 	private IEnumerator<float> AnnounceThread()
 	{
-		m_secretCount++;
-		m_textWidget.text = SECRET_FOUND + m_secretCount.ToString() + " / " + maxSecrets;
+		secretCount++;
+		m_textWidget.text = SECRET_FOUND + secretCount.ToString() + " / " + maxSecrets;
 
 		Color tempColor = m_textWidget.color;
 		tempColor.a = 1.0f;

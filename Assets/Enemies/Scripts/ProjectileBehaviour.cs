@@ -24,7 +24,7 @@ public class ProjectileBehaviour : MonoBehaviour
 		transform.position += ( moveDir * moveSpeed * Time.fixedDeltaTime );
 		RaycastHit hit;
 
-		LayerMask layerMask = 1 << 2;
+		LayerMask layerMask = 1 << 2 & 1 << 11;
 		layerMask = ~layerMask;
 
 		if ( Physics.Raycast( transform.position, moveDir, out hit, moveSpeed * Time.fixedDeltaTime,  layerMask ) )

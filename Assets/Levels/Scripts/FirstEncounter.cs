@@ -81,9 +81,12 @@ public class FirstEncounter : MonoBehaviour
 				}
 			}
 
+			float emergencyTimeStart = Time.time;
 			while (!AllUnitsDead(spawnedUnits))
 			{
 				yield return Timing.WaitForSeconds(0.2f);
+				if (Time.time >= emergencyTimeStart + 25f)
+					break;
 			}
 		}
 		

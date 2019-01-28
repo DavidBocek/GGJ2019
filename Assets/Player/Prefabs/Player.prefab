@@ -568,7 +568,7 @@ MonoBehaviour:
   dashDistance: 200
   attackCollider: {fileID: 8116830239628817456}
   fasterWalkRequiredDuration: 2
-  stageMusic: {fileID: 8300000, guid: 4b9e86e849206f74990029ce252ac8eb, type: 3}
+  stageMusic: {fileID: 8300000, guid: 27040d94add006c46851abf2529d1f30, type: 3}
   footstepsFX: {fileID: 1138237023}
   dashFootstepsFX: {fileID: 7232382092665567078}
   deathFX: {fileID: 4374826887154280692}

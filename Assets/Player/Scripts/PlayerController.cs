@@ -80,6 +80,7 @@ public class PlayerController : BaseCharacterController
         AudioSource stageSource = gameObject.AddComponent<AudioSource>();
         stageSource.clip = stageMusic;
         stageSource.loop = true;
+        stageSource.volume = 0.5f;
         stageSource.Play();
 	}
 

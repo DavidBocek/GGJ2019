@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   publicClipCollections:
   - collectionName: beamCharge
-    volume: 0.1
+    volume: 0.3
     clips:
     - {fileID: 8300000, guid: deae2540a80deb045b386f739a7aaff5, type: 3}
     - {fileID: 8300000, guid: 4c4cdb6d6c0a81246af2083032e558ba, type: 3}

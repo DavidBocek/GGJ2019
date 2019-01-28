@@ -83,7 +83,7 @@ public class EndOfGameBehaviour : MonoBehaviour
 		{
 			if ( Input.GetButtonDown( "Submit" ) )
 			{
-				SceneManager.LoadScene( "MainMenu" );
+				SceneManager.LoadScene( "StartMenu" );
 			}
 			yield return Timing.WaitForOneFrame;
 		}

@@ -7,7 +7,7 @@ public class SpawnPointController : MonoBehaviour
 {
     public bool isLevelStart = false;
 
-	private Light m_light;
+	/*private Light m_light;
 
     // Start is called before the first frame update
     void Start()
@@ -15,15 +15,15 @@ public class SpawnPointController : MonoBehaviour
 		m_light = GetComponentInChildren<Light>();
 		Assert.IsTrue(m_light != null);
 		m_light.enabled = false;
-    }
+    }*/
 
 	public void Activate()
 	{
-		m_light.enabled = true;
+		//m_light.enabled = true;
 	}
 
 	public void Deactivate()
 	{
-		m_light.enabled = false;
+		//m_light.enabled = false;
 	}
 }

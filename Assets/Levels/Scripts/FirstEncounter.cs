@@ -21,10 +21,15 @@ public class FirstEncounter : MonoBehaviour
 		public float delay;
 	}
 
+	[System.Serializable]
+	public class Wave
+	{
+		public UnitSpawn[] spawns;
+	}
+
 
 	public GameObject[] slimeSpawners;
-	public UnitSpawn[] waveOneSpawns;
-	public UnitSpawn[] waveTwoSpawns;
+	public Wave[] waves;
 
 	public Gate[] gatesToOpenOnComplete;
 
@@ -55,50 +60,31 @@ public class FirstEncounter : MonoBehaviour
 
 	private IEnumerator<float> RunEncounter()
 	{
-		List<GameObject> spawnedUnits =  new List<GameObject>();
-		foreach (UnitSpawn spawn in waveOneSpawns)
+		foreach (Wave wave in waves)
 		{
-			yield return Timing.WaitForSeconds(spawn.delay);
-			for (int i=0; i<spawn.count; i++)
+			List<GameObject> spawnedUnits = new List<GameObject>();
+			foreach (UnitSpawn spawn in wave.spawns)
 			{
-				while (m_player.GetComponent<HealthController>().currHealth <= 0)
+				yield return Timing.WaitForSeconds(spawn.delay);
+				for (int i = 0; i < spawn.count; i++)
 				{
-					yield return Timing.WaitForSeconds(0.2f);
-				}
+					while (m_player.GetComponent<HealthController>().currHealth <= 0)
+					{
+						yield return Timing.WaitForSeconds(0.2f);
+					}
 
-				GameObject spawner = slimeSpawners[Random.Range(0, slimeSpawners.Length)];
-				spawnedUnits.Add(SpawnUnit(spawn.type, spawner.transform));
-				yield return Timing.WaitForSeconds(Random.Range(0.1f, 0.15f));
+					GameObject spawner = slimeSpawners[Random.Range(0, slimeSpawners.Length)];
+					spawnedUnits.Add(SpawnUnit(spawn.type, spawner.transform));
+					yield return Timing.WaitForSeconds(Random.Range(0.1f, 0.15f));
+				}
+			}
+
+			while (!AllUnitsDead(spawnedUnits))
+			{
+				yield return Timing.WaitForSeconds(0.2f);
 			}
 		}
-
-		while (!AllUnitsDead(spawnedUnits))
-		{
-			yield return Timing.WaitForSeconds(0.2f);
-		}
-
-		spawnedUnits = new List<GameObject>();
-		foreach (UnitSpawn spawn in waveTwoSpawns)
-		{
-			yield return Timing.WaitForSeconds(spawn.delay);
-			for (int i = 0; i < spawn.count; i++)
-			{
-				while (m_player.GetComponent<HealthController>().currHealth <= 0)
-				{
-					yield return Timing.WaitForSeconds(0.2f);
-				}
-
-				GameObject spawner = slimeSpawners[Random.Range(0, slimeSpawners.Length)];
-				spawnedUnits.Add(SpawnUnit(spawn.type, spawner.transform));
-				yield return Timing.WaitForSeconds(Random.Range(0.1f, 0.15f));
-			}
-		}
-
-		while (!AllUnitsDead(spawnedUnits))
-		{
-			yield return Timing.WaitForSeconds(0.2f);
-		}
-
+		
 		foreach (Gate gate in gatesToOpenOnComplete)
 		{
 			gate.GateOpen();
@@ -124,13 +110,13 @@ public class FirstEncounter : MonoBehaviour
 		switch (type)
 		{
 			case UnitType.BAT:
-				spawnedUnit = GameObject.Instantiate(batObj, location.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+				spawnedUnit = GameObject.Instantiate(batObj, location.position + Vector3.up * (1.5f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 				break;
 			case UnitType.DEMON:
-				spawnedUnit = GameObject.Instantiate(demonObj, location.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+				spawnedUnit = GameObject.Instantiate(demonObj, location.position + Vector3.up * (2f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 				break;
 			case UnitType.EYE:
-				spawnedUnit = GameObject.Instantiate(eyeObj, location.position, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+				spawnedUnit = GameObject.Instantiate(eyeObj, location.position + Vector3.up * (2f - location.position.y), Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 				break;
 		}
 		if (!spawnedUnit)

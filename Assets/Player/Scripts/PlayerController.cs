@@ -191,21 +191,12 @@ public class PlayerController : BaseCharacterController
             attackColliderRenderer.enabled = attackColliderComp.enabled;
         }
 
-        if ( Input.GetKeyDown( "p" ) )
-        {
-            gameObject.GetComponent<HealthController>().HealthController_TakeDamage( 50 );
-        }
-        if ( Input.GetKeyDown( "m" ) )
-        {
-		    SceneManager.LoadScene( 1 );
-        }
-
         // input updates
         float timeNow = Time.time;
 
         if ( isDead )
         {
-            if ( Input.GetButtonDown( "Submit" ) )
+            if ( Input.GetButtonDown( "Attack" ) )
             {
                 if ( currentSpawnPoint == null )
                 {
@@ -222,6 +213,8 @@ public class PlayerController : BaseCharacterController
                 
                 modelTransform.localScale = Vector3.zero;
                 modelTransform.DOScale( 1.0f, 0.6f );
+
+                nextAttackReadyTime = Time.time + attackCooldown;
 
                 isDead = false;
                 animator.SetBool( "IsDead", false );

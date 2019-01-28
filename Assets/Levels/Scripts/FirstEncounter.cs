@@ -27,6 +27,8 @@ public class FirstEncounter : MonoBehaviour
 		public UnitSpawn[] spawns;
 	}
 
+	public AudioClip youDidIt;
+
 
 	public GameObject[] slimeSpawners;
 	public Wave[] waves;
@@ -87,6 +89,7 @@ public class FirstEncounter : MonoBehaviour
 		
 		foreach (Gate gate in gatesToOpenOnComplete)
 		{
+			AudioSource.PlayClipAtPoint(youDidIt, m_player.transform.position);
 			gate.GateOpen();
 		}
 	}

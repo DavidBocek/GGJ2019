@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6349809949891143974}
   - component: {fileID: 598677920}
   - component: {fileID: 589551771}
+  - component: {fileID: 3531804039827948334}
   m_Layer: 0
   m_Name: gate
   m_TagString: Untagged
@@ -106,3 +107,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yChange: 1.5
   moveTime: 0.8
+--- !u!114 &3531804039827948334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598677919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b09f2c5ac29add4198545f5a27b13d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  publicClipCollections:
+  - collectionName: gateMove
+    volume: 0.3
+    clips:
+    - {fileID: 8300000, guid: ad5c79434e9ec414882cc04b418afee6, type: 3}
+    - {fileID: 8300000, guid: 0a58d56a5d785954fa35fa42a0d53035, type: 3}
+    - {fileID: 8300000, guid: 306fa9fc34d4ac743804acd8ff7f991d, type: 3}
+    - {fileID: 8300000, guid: a85baeb6c74818d41ba70fbde06ad611, type: 3}
+    - {fileID: 8300000, guid: a2f7b32d096fdb04f9a0cdb41789aaa4, type: 3}
+    - {fileID: 8300000, guid: 6deee385a67f5624eb77325931c2630a, type: 3}

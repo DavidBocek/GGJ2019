@@ -32,6 +32,8 @@ public class Gate : MonoBehaviour
 	{
 		if (!m_isGateOpen)
 			return;
+        
+        gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "gateMove", false );
 
 		m_isGateOpen = false;
 		transform.DOLocalMoveY(yChange, moveTime).SetRelative(true).SetEase(Ease.OutBounce);
@@ -41,6 +43,8 @@ public class Gate : MonoBehaviour
 	{
 		if (m_isGateOpen)
 			return;
+        
+        gameObject.GetComponent<RandomAudioPlayer>().PlayRandomSound( "gateMove", false );
 
 		m_isGateOpen = true;
 		transform.DOLocalMoveY(-yChange, moveTime).SetRelative(true).SetEase(Ease.InQuart);

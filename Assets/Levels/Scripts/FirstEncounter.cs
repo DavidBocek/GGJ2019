@@ -42,7 +42,7 @@ public class FirstEncounter : MonoBehaviour
 	private GameObject m_player;
 
 
-	private bool m_hasStarted = false;
+	public bool m_hasStarted = false;
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -92,10 +92,11 @@ public class FirstEncounter : MonoBehaviour
 		
 		foreach (Gate gate in gatesToOpenOnComplete)
 		{
-			AudioSource.PlayClipAtPoint(youDidIt, m_player.transform.position);
+			AudioSource.PlayClipAtPoint(youDidIt, m_player.transform.position, 2f);
 			gate.GateOpen();
 		}
-		m_hasStarted = true;
+
+		GetComponent<GatesTrigger>().neverTriggerAgain = true;
 	}
 
 	private bool AllUnitsDead(List<GameObject> units)

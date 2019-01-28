@@ -204,7 +204,7 @@ public class PlayerController : BaseCharacterController
 
         if ( isDead )
         {
-            if ( Input.GetButtonDown( "Attack" ) )
+            if ( Input.GetButtonDown( "Submit" ) )
             {
                 if ( currentSpawnPoint == null )
                 {
@@ -227,6 +227,10 @@ public class PlayerController : BaseCharacterController
                 isDead = false;
                 animator.SetBool( "IsDead", false );
                 GetComponent<RandomAudioPlayer>().PlayRandomSound( "playerRespawn", true );
+				foreach (GameObject gatesObj in GameObject.FindGameObjectsWithTag("GateTrigger"))
+				{
+					gatesObj.GetComponent<GatesTrigger>().hasFiredThisRespawn = false;
+				}
             }
         }
 

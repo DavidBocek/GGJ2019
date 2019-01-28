@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using DG.Tweening;
+using MEC;
 
 public class HealthController : MonoBehaviour
 {
@@ -59,11 +60,18 @@ public class HealthController : MonoBehaviour
         {
             flashRenderer.material.SetFloat("_FlashAmount", 0f);
 		    flashRenderer.material.DOFloat(1f, "_FlashAmount", flashDuration / 2f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InQuad);
+			Timing.RunCoroutineSingleton(HackGoToZeroFlash(), "hack", SingletonBehavior.Overwrite);
         }
 		
         gameObject.SendMessageUpwards( "OnDamage", damage, SendMessageOptions.DontRequireReceiver );
         return HealthControllerDamageResult.eDamaged;
     }
+
+	private IEnumerator<float> HackGoToZeroFlash()
+	{
+		yield return Timing.WaitForSeconds(0.15f);
+		flashRenderer.material.SetFloat("_FlashAmount", 0f);
+	}
 
     public void HealthController_Heal( int healAmount )
     {
